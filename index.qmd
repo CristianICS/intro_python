@@ -1,0 +1,87 @@
+# Información general {#sec-general}
+
+Dentro de la asignatura *Programación para el análisis espacial*, el bloque de Python se divide en tres módulos:
+
+1. Introducción al lenguaje Python
+2. Manipulación de datos vectoriales con `pandas` y `geopandas`
+3. Manejo de datos ráster con `rasterio`
+
+## Objetivos
+
+El objetivo principal es establecer las bases para el **desarrollo de herramientas de análisis espacial con Python**.
+
+Los modelos de lenguaje como ChatGPT o Claude pueden ayudar a generar código, pero también pueden producir errores difíciles de detectar sin conocimientos de programación. Algunos de estos errores no impiden ejecutar el código, pero sí generan resultados incorrectos.
+
+Un ejemplo es este [error detectado en una librería espacial](https://github.com/geopandas/geopandas/issues/2198). Determinadas uniones espaciales podían devolver una relación inexistente, por ejemplo, entre un punto y un polígono separados por 400 metros. El código se ejecutaba sin errores, pero el resultado era incorrecto.
+
+Por ello, el curso busca desarrollar las siguientes habilidades:
+
+- Aplicar el pensamiento computacional a problemas espaciales
+- Analizar código de forma crítica
+- Seleccionar enfoques metodológicos adecuados
+
+Durante las clases y ejercicios también se introducirán buenas prácticas de programación con Python.
+
+## Programa
+
+El módulo incluye las siguientes clases teóricas y prácticas:
+
+| Día | Lección |
+|---|---|
+| 19/11 | Introducción, instalación y primeros pasos |
+| 20/11 | [M1] Variables, estructuras, funciones y clases |
+| 23/11 | [M1] Métodos, bucles y estructuras de control |
+| 24/11 | [M1] Repaso: ejercicios prácticos y VSCodium |
+| 25/11 | [M1 y M2] *Scripting* y PEPs / Datos vectoriales y `pandas` |
+| 26/11 | [M2] Operaciones vectoriales y `geopandas` |
+| 27/11 | [M3] Datos ráster y `numpy` |
+| 30/11 | [M3] Operaciones ráster con `rasterio` y `gdal` |
+| 1/12 | [M3] Operaciones ráster con `rasterio` y `gdal` |
+| 2/12 | Sesión práctica: trabajar con el Inventario Forestal Nacional (IFN) mediante Python |
+
+> *M* significa "Módulo". Los números hacen referencia a los [tres módulos](#sec-general) de esta parte de la asignatura.
+
+Al final de cada clase se propondrán ejercicios cortos que se resolverán al comienzo de la siguiente. Estos ejercicios no formarán parte de la evaluación.
+
+## Evaluación
+
+Los módulos de programación con Python se evaluarán, tanto en la convocatoria continua como en la global, mediante:
+
+- Prueba escrita (60%): preguntas sobre los contenidos del módulo.
+- Prueba oral (40%): preguntas sobre un ejercicio sencillo resuelto previamente por el estudiante. La prueba durará un máximo de 5 minutos. Se proporcionará una plantilla con varios ejercicios, de los que el estudiante elegirá uno para resolver.
+
+Se permitirá el uso de modelos de lenguaje generativo para resolver el ejercicio de la prueba oral. La evaluación tendrá en cuenta tanto la resolución del ejercicio como las respuestas del alumno a las preguntas del profesor. Se valorará la capacidad para:
+
+- Conocer las principales características del lenguaje Python
+- Utilizar correctamente la terminología de programación y de los entornos de desarrollo
+- Identificar las estructuras de control necesarias para diseñar un código
+- Conocer las principales librerías de análisis espacial en Python y las estructuras de datos a las que están destinadas
+- Utilizar entornos de desarrollo para escribir y ejecutar código
+- Utilizar librerías para el tratamiento y gestión de datos, como `numpy` y `pandas`
+- Proponer diferentes soluciones a un problema
+
+<!-- Enlace a las horas disponibles para la prueba oral -->
+
+## Referencias y materiales
+
+Aprender un lenguaje de programación requiere práctica. Consultar diferentes recursos y aplicar lo aprendido a problemas reales facilita el aprendizaje.
+
+Los siguientes materiales pueden servir como referencia:
+
+- Swaroop CH (2024). [*A Byte of Python*](https://python.swaroopch.com/)
+- Ujaval Gandhi (2024). [*Python Foundation for Spatial Analysis*](https://courses.spatialthoughts.com/python-foundation.html)
+- Dave Whipp (2023). [*Geo-Python 2023*](https://geo-python-site.readthedocs.io)
+- Michael Dorman (2023). [*Introduction to Geospatial Programming with Python*](https://geobgu.xyz/py/index.html)
+- Qiusheng Wu (2023). [*Earth Engine and Geemap: Geospatial Data Science with Python*](https://book.geemap.org)
+- [PyGIS - Open Source Spatial Programming & Remote Sensing](https://pygis.io/docs/a_intro.html)
+- Michael Mann, Steven Chao, Christophe Van Neste, Roger Lew, & Mark Isken. (2023). [*pyGIS: Clearer Satellites (v1.2.1)*](https://doi.org/10.5281/zenodo.8215141)
+- [Geocomputation with Python - geocompy](https://py.geocompx.org)
+- Universidad de Helsinki. [Geo-Python](https://github.com/geo-python/site)
+- [Introduction to GIS Programming](https://geog-312.gishub.org/index.html)
+- [Geospatial Analysis with Python and R](https://kodu.ut.ee/~kmoch/geopython2023/)
+
+Además, se recomiendan los siguientes libros de texto (en orden de relevancia):
+
+- Zelle, J. (2010) [*Python Programming: An Introduction to Computer Science*, Second edition. Franklin, Beedle & Associates](https://archive.org/download/computer-science-collection-pdf/Python%20Programming%20-%20An%20Introduction%20to%20Computer%20Science%2C%203rd%20ed.%20-%20John%20M.%20Zelle%20%28Franklin%2C%20Beedle%20%26%20Associates%3B2017%3B9781590282755%3Beng%29.pdf)
+- Lawhead, J. (2015) [*Learning Geospatial Analysis with Python: An effective guide to geographic information systems and remote sensing analysis using Python 3*, Third edition. Packt Publishing](https://www.packtpub.com/product/learning-geospatial-analysis-with-python/)
+- McKinney, W. (2012) [*Python for Data Analysis: Data wrangling with Pandas, NumPy and iPython*, First edition. O´Reilly Media](http://www.amazon.com/Python-Data-Analysis-Wrangling-IPython/dp/1449319793)

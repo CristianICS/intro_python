@@ -1,0 +1,180 @@
+# Primeros pasos
+
+Tras la instalación descrita en el @sec-installation, Micromamba permite crear un entorno con Python y las herramientas necesarias para el curso. Los comandos siguientes se ejecutan en PowerShell.
+
+## Crear un entorno de trabajo {#sec-install-env}
+
+Se crea el entorno `hello_world` con el siguiente comando:
+
+```powershell
+micromamba create -n hello_world -c conda-forge python jupyterlab ipykernel -y
+```
+
+Cada elemento cumple una función:
+
+- `micromamba`: herramienta que ejecuta el comando.
+- `create`: operación que crea el entorno.
+- `-n hello_world`: nombre del entorno.
+- `-c conda-forge`: canal del que se obtienen los paquetes.
+- `python`: descarga del intérprete de Python.
+- `jupyterlab`: paquete con la aplicación para trabajar con cuadernos Jupyter.
+- `ipykernel`: componente que permite ejecutar Python desde los cuadernos.
+- `-y`: acepta la instalación sin solicitar confirmación.
+
+Micromamba busca una combinación compatible de los paquetes y sus **dependencias**, es decir, los otros paquetes necesarios para que funcionen. Para ello, utiliza la información de los paquetes generados a partir de las recetas descritas en el @sec-recipes. Este proceso se denomina **resolución del entorno**: se seleccionan versiones que puedan funcionar juntas, aunque no sean las más recientes de cada paquete.
+
+La terminal muestra los paquetes que se van a instalar y su ubicación. El proceso puede tardar varios minutos. Al terminar, aparece un mensaje similar a este:
+
+```text
+Transaction finished
+
+To activate this environment, use:
+
+    micromamba activate hello_world
+```
+
+### Activar y consultar el entorno
+
+Se activa el entorno con:
+
+```powershell
+micromamba activate hello_world
+```
+
+El nombre aparece al principio de la línea de la terminal:
+
+```text
+(hello_world) PS C:\Users\nombre_usuario>
+```
+
+A partir de ese momento, los comandos de Python y Jupyter utilizan los programas instalados en ese entorno. La activación se aplica a la terminal actual; debe repetirse al abrir otra nueva.
+
+Los entornos disponibles y sus ubicaciones se consultan con:
+
+```powershell
+micromamba env list
+```
+
+### Eliminar un entorno de trabajo {#sec-delete-env}
+
+Esta operación elimina el entorno y sus paquetes. No es necesario realizarla para continuar con el curso.
+
+Primero se desactiva el entorno, si está activo:
+
+```powershell
+micromamba deactivate
+```
+
+Después se elimina el entorno elegido. En este ejemplo, se eliminaría `hello_world`:
+
+```powershell
+micromamba remove -n hello_world --all
+```
+
+### Comandos adicionales
+
+Para consultar otros comandos de Micromamba, se puede ejecutar `micromamba --help`; para obtener ayuda sobre uno concreto, se añade `--help` al comando, por ejemplo, `micromamba create --help`.
+
+La [guía de comandos de Conda](https://docs.conda.io/projects/conda/en/latest/commands/index.html) sirve como referencia complementaria: muchos comandos habituales también funcionan sustituyendo `conda` por `micromamba`.
+
+## Entorno Integrado de Desarrollo
+
+En la introducción de esta asignatura se vio lo que era una IDE (*Integrated Development Environment*), un programa capaz de:
+
+- Servir de **editor** avanzado (resalta la sintaxis y gestiona las sangrías)
+- Hacer de **compilador** e **interprete** de código
+- Integrar una consola o **terminal** que ejecute comandos
+- [Opcional] **Depurador** integrado (facilitar la inspección del código)
+
+Son necesarios a la hora de programar y escribir código, ya que agilizan la detección de errores y facilitan la escritura con múltiples atajos de teclado y funciones predefinidas. Reúnen todo lo necesario para poder programar en un solo lugar.
+
+Python es un lenguaje ampliamente utilizado, por lo que la mayoría de IDEs lo integran. Las más utilizadas por los programadores son:
+
+- [PyCharm](https://www.jetbrains.com/pycharm/): Aplicación con funcionalidades avanzadas integradas desde el inicio para trabajar con Python junto con Inteligencia Artificial y agentes. Es gratuita pero cuenta con versión de pago que aumenta las funcionalidades.
+- [Visual Studio Code](https://code.visualstudio.com/) (y su versión libre [VS Codium](https://vscodium.com/)): Ligera y compatible con múltiples lenguajes de programación. Es totalmente libre, aunque VS Code es desarrollada por Windows a partir del código de VS Codium, por lo que cuenta con funcionalidades integradas pero también con algunas funciones ocultas de Windows como la telemetría. Es una de las más utilizadas.
+- [Spider](https://www.spyder-ide.org/): Similar a RStudio, pero orientada a Python. Está enfocada a la ciencia de datos.
+
+### Jupyter y JupyterLab
+
+[Jupyter](https://jupyter.org/about) es un proyecto de código abierto que desarrolla herramientas para trabajar de forma interactiva con distintos lenguajes de programación.
+
+Los **cuadernos Jupyter** son archivos con extensión `.ipynb` que combinan celdas de código, texto explicativo, gráficos y otros resultados. Permiten ejecutar el código por partes y observar sus resultados junto a las instrucciones.
+
+[JupyterLab](https://jupyterlab.readthedocs.io/en/stable/) es una aplicación que permite abrir y editar estos cuadernos desde un navegador. Incluye un explorador de archivos, pestañas, un editor de texto y terminales. El cuaderno es el documento; JupyterLab es una de las aplicaciones que permiten utilizarlo.
+
+En las secciones introductorias, se usan los cuadernos de Jupyter y JupyterLab por ser intuitivos y permitir en un mismo lugar comentarios y código. Esta características los hace muy eficientes para estructurar apuntes relacionados con Python. Ya se han instalado los paquetes necesarios para su ejecución en la @sec-install-env.
+
+::: {.callout-note}
+
+JupyterLab es un entorno de trabajo orientado a la exploración de datos mediante cuadernos interactivos. Comparte herramientas con los entornos de desarrollo integrados (IDE), aunque estos suelen ofrecer más funciones para organizar, analizar y mantener proyectos de programación con numerosos archivos.
+
+:::
+
+## Configurar el directorio de trabajo
+
+Se recomienda guardar los materiales y cuadernos en una carpeta específica, por ejemplo en `D:\intro_python`. Si el ordenador no dispone de unidad `D:`, puede utilizarse una carpeta del directorio personal.
+
+La carpeta se crea desde el explorador de archivos de Windows. A continuación, se abre PowerShell y se activa el entorno:
+
+```powershell
+micromamba activate hello_world
+```
+
+## Iniciar JupyterLab
+
+Se inicia JupyterLab indicando la carpeta elegida:
+
+```powershell
+jupyter lab --notebook-dir="D:/intro_python"
+```
+
+La ruta debe sustituirse por la de la carpeta creada. Las comillas permiten utilizar rutas que contengan espacios.
+
+El comando inicia un **servidor local**, un programa que permite acceder a JupyterLab desde el navegador del propio ordenador. Normalmente se abre una pestaña de forma automática. Si no se abre, puede copiarse en el navegador la dirección que muestra la terminal.
+
+![Vista de la interfaz de JupyterLab](https://jupyterlab.readthedocs.io/en/stable/_images/interface-jupyterlab.png){#fig-jupyterlab}
+
+El explorador de archivos de la izquierda muestra el contenido de la carpeta elegida (@fig-jupyterlab). La terminal de PowerShell permanece ocupada mientras el servidor está en funcionamiento.
+
+Para terminar la sesión, se pulsa `Ctrl` + `C` en la terminal y se confirma el cierre. Cerrar únicamente la pestaña del navegador no detiene el servidor.
+
+## Crear el primer cuaderno
+
+Con JupyterLab en funcionamiento, se crea un cuaderno desde el menú:
+
+```text
+File -> New -> Notebook
+```
+
+A continuación, se selecciona `Python 3 (ipykernel)`. El **núcleo** o *kernel* es el proceso que ejecuta el código del cuaderno y conserva los datos mientras permanece activo.
+
+El archivo se abre en una pestaña con un nombre como `Untitled.ipynb`. Para cambiarlo, se pulsa con el botón derecho sobre su nombre en el explorador de archivos, se selecciona *Rename* y se escribe `hello_world.ipynb`. También puede seleccionarse desde el menu superior, dentro de la pestaña *File*.
+
+La primera celda del cuaderno se crea automáticamente. Es una celda que permite introducir código, indicado por los corchetes (`[ ]`) en el lado izquierdo de la celda y el texto *Code* en la línea superior (@fig-blank).
+
+![Primera celda de código en un cuaderno en blanco.](../images/book/notebook_interface_blank.png){#fig-blank}
+
+Si se selecciona el desplegable donde se lee *Code*, cambiar a la opción *Markdown*. Comprobar que los dos corchetes han desaparecido. Escribe en la celda:
+
+```text
+Primer cuaderno de Jupyter en JupyterLab
+```
+
+Después, pulsa `Ctrl` + `Intro` para ejecutar la celda. Al ser texto, lo único que sucede es que la celda se bloquea y no deja volver a editarse. Para ello, hacer click dos veces sobre ella de nuevo.
+
+El texto dentro de este tipo de celdas puede formatearse utilizando el [estilo Markdown](https://www.markdownguide.org/basic-syntax/). Por ejemplo, haz de la línea anterior un encabezado de primer nivel añadiendo `#` al inicio de la línea y vuelve a ejecutar la celda.
+
+Sitúa el cursor debajo de la celda anterior hasta que aparezca el mensaje *Click to add a cell*. Al pulsar sobre el recuadro, se genera una nueva línea de código. Todo el texto que se incluya en ellas deberá estar escrito en formato de Python.
+
+Escribe en la nueva línea de código la siguiente línea:
+
+```python
+print("Hola, mundo")
+```
+
+Al contrario que en la celda de texto, las palabras se han coloreado de un modo distinto en función de diferentes características en base al lenguaje de Python. 
+Al pulsar `Mayús` + `Intro`, se ejecuta la celda y aparece el texto `Hola, mundo` debajo, es decir, el resultado del código ejecutado. Se habrá creado una nueva celda de código, ya que el atajo de teclado `Mayús` + `Intro` ejecuta la celda y pasa a la siguiente. Además, en los corchetes a la izquierda de la celda aparecerá `[1]`. Este número indica el orden de ejecución dentro de la sesión del núcleo, no cuántas veces se ha ejecutado esa celda. Al ejecutar otra celda, o repetir la misma, el contador aumenta.
+
+Guarda el cuaderno con `Ctrl` + `S`.
+
+La [guía de cuadernos de JupyterLab](https://jupyterlab.readthedocs.io/en/stable/user/notebook.html) describe otras opciones de edición y ejecución.

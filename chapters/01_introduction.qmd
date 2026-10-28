@@ -1,0 +1,141 @@
+# Introducción {#sec-introduction}
+
+Python es uno de los lenguajes de programación más populares en todo el mundo[^1][^2]. SIGs como QGIS y ArcGIS Pro lo utilizan, además de una [enorme comunidad de usuarios que realiza operaciones espaciales mediante código Python](https://github.com/acgeospatial/awesome-earthobservation-code).
+
+¿Por qué?
+
+1. **Simplicidad**: su sintaxis se parece mucho al lenguaje natural, lo que lo hace fácil de leer y aprender.
+2. **Versatilidad**: se usa en ciencia de datos, inteligencia artificial, desarrollo web, automatización, análisis financiero, educación y mucho más.
+3. **Comunidad**: cuenta con una gran cantidad de usuarios que desarrolla bibliotecas y comparte soluciones, lo que permite resolver casi cualquier problema.
+
+> Las ventajas completas de Python están recogidas en el capítulo 1 del [tutorial oficial de Python](https://docs.python.org/3/tutorial/appetite.html).
+
+[^1]: [TIOBE Index](https://www.tiobe.com/tiobe-index/)
+[^2]: [Encuesta de StackOverflow de 2026](https://survey.stackoverflow.co/2026/technology/data/languages)
+
+Durante este curso se usará para realizar operaciones espaciales fuera de los SIG. Pero, ¿qué ventajas tiene este flujo de trabajo con respecto a los SIG tradicionales?
+
+- **Accesible**: Python es software libre y puede utilizarse sin pagar una licencia.
+- **Automatizable**: permite repetir operaciones espaciales sobre numerosos archivos.
+- **Flexible**: sus bibliotecas permiten trabajar con distintos formatos de datos y conectar herramientas.
+- **Reproducible**: guardar el código y documentar los datos y las versiones facilita repetir un análisis.
+- **Formativo**: escribir las operaciones ayuda a comprender las decisiones de un análisis espacial.
+
+Estas ventajas complementan el trabajo con aplicaciones SIG, que también pueden ser libres y ofrecer herramientas de automatización.
+
+## Nota importante
+
+Aprender un lenguaje de programación no es una tarea sencilla. Requiere tiempo y práctica.
+
+En este módulo no se busca llegar a un nivel avanzado en programación con Python, sino aumentar la curiosidad y el deseo de seguir aprendiendo y desarrollando código con el lenguaje. La práctica permite afianzar los conocimientos del curso.
+
+> Saber programar no es conocer las reglas de un lenguaje, sino aplicarlas de manera eficiente en la resolución de problemas.
+
+## Origen del lenguaje
+
+Python es un lenguaje de programación de **alto nivel**, creado por Guido van Rossum [-@van1991python]. Su nombre hace referencia al grupo de humor Monty Python.
+
+Los lenguajes de alto nivel **permiten escribir instrucciones con palabras y estructuras**, sin tener que utilizar directamente el lenguaje máquina que procesa el ordenador, representado mediante unos y ceros. Esto facilita la lectura y el mantenimiento de los programas.
+
+Entre los lenguajes de alto nivel, Python es un **lenguaje interpretado**:
+
+::: {.columns}
+
+::: {.column width="40%"}
+
+**Lenguajes compilados**
+
+-   El programa se traduce **una sola vez**, antes de ejecutarlo
+-   Esta traducción se llama **compilación**
+-   Una vez compilado, **no hace falta el código fuente** para ejecutarlo
+-   Normalmente hay que compilarlo de nuevo para cada plataforma
+-   **Usos**: sistemas operativos, videojuegos, edición de vídeo...
+-   *Ejemplos*: Pascal, Ada, C/C++, Fortran...
+ 
+:::
+
+::: {.column width="40%"}
+
+**Lenguajes interpretados**
+
+-   El programa se traduce **mientras se ejecuta**
+-   Un **intérprete** lee y ejecuta las instrucciones
+-   Por eso, normalmente son **más lentos** que los lenguajes compilados
+-   El mismo código puede funcionar en múltiples plataformas: **mayor portabilidad**
+-   **Usos**: aplicaciones web, programas multiplataforma, automatización...
+-   *Ejemplos*: **Python**, Perl, PHP, Scratch...
+:::
+
+:::
+
+Esta comparación es una simplificación: un mismo lenguaje puede combinar compilación e interpretación. Algunas librerías de Python utilizan internamente código escrito en lenguajes como C o C++ para realizar determinadas tareas de forma más eficiente. NumPy, que se utilizará para trabajar con datos numéricos, es un ejemplo (TODO: Citar la sección, todavía sin definir).
+
+Los siguientes códigos muestran dos fragmentos que escriben los números del 0 al 4. No es necesario comprender todavía cada instrucción; permiten comparar la sintaxis de C (lenguaje compilado) y Python (lenguaje interpretado).
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+```c
+// C
+for (int i = 0; i < 5; i++) {
+    printf("%d\n", i);
+}
+```
+ 
+:::
+::: {.column width="50%"}
+
+```py
+# Python
+for i in range(5):
+    print(i)
+
+```
+
+:::
+:::
+
+Python expresa la misma operación con menos elementos de sintaxis. C requiere declarar el tipo de la variable (int) y utilizar llaves y puntos y coma; Python delimita el bloque mediante la sangría.
+
+## Detalles prácticos
+
+Antes de ejecutar código de Python, es necesario instalar un **intérprete de Python**. El intérprete es un programa instalado en el ordenador que se encarga de ejecutar el código.
+
+Existen distintos programas capaces de ejecutar código Python. El más utilizado es CPython, el intérprete que se empleará en este curso. Su proceso de ejecución puede resumirse en los siguientes pasos:
+
+1. El intérprete lee el archivo `.py` o las instrucciones escritas en Python
+2. El código se compila/traduce a una representación intermedia denominada *bytecode*
+3. La **máquina virtual de Python** (PVM, *Python Virtual Machine*) ejecuta ese *bytecode*
+
+Cuando un programa necesita interactuar con el ordenador, por ejemplo, leer un archivo, mostrar información en pantalla o conectarse a una red, Python utiliza las funciones proporcionadas por el sistema operativo y otras librerías. Por tanto, el código de Python no interactúa directamente con el *hardware*.
+
+De forma simplificada, el flujo puede representarse así:
+
+```text
+Código en Python (.py)
+        |
+        .
+Intérprete de Python
+        |
+        .
+Bytecode
+        |
+        .
+Máquina virtual de Python
+        |
+        .
+Sistema operativo
+        |
+        .
+Hardware
+```
+
+Esta separación permite que gran parte del mismo código pueda ejecutarse en distintos sistemas operativos. Por este motivo, Python es **multiplataforma**: un programa puede ejecutarse en Windows, macOS o Linux, siempre que el sistema disponga de un intérprete de Python compatible.
+
+En la siguiente sección se explican los pasos necesarios para instalar el intérprete de Python en Windows.
+
+## Referencias
+
+::: {#refs}
+:::

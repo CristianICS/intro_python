@@ -1,0 +1,10 @@
+TASKS.md
+_book/
+.quarto/
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+/images/presentation
+/presentation
+/.quarto/
+**/*.quarto_ipynb
