@@ -33,107 +33,60 @@ En este módulo no se busca llegar a un nivel avanzado en programación con Pyth
 
 ## Origen del lenguaje
 
-Python es un lenguaje de programación de **alto nivel**, creado por Guido van Rossum [-@van1991python]. Su nombre hace referencia al grupo de humor Monty Python.
+Python es un lenguaje de programación creado por Guido van Rossum [-@van1991python]. Su nombre hace referencia al grupo de humor Monty Python.
 
-Los lenguajes de alto nivel **permiten escribir instrucciones con palabras y estructuras**, sin tener que utilizar directamente el lenguaje máquina que procesa el ordenador, representado mediante unos y ceros. Esto facilita la lectura y el mantenimiento de los programas.
-
-Entre los lenguajes de alto nivel, Python es un **lenguaje interpretado**:
-
-::: {.columns}
-
-::: {.column width="40%"}
-
-**Lenguajes compilados**
-
--   El programa se traduce **una sola vez**, antes de ejecutarlo
--   Esta traducción se llama **compilación**
--   Una vez compilado, **no hace falta el código fuente** para ejecutarlo
--   Normalmente hay que compilarlo de nuevo para cada plataforma
--   **Usos**: sistemas operativos, videojuegos, edición de vídeo...
--   *Ejemplos*: Pascal, Ada, C/C++, Fortran...
- 
-:::
-
-::: {.column width="40%"}
-
-**Lenguajes interpretados**
-
--   El programa se traduce **mientras se ejecuta**
--   Un **intérprete** lee y ejecuta las instrucciones
--   Por eso, normalmente son **más lentos** que los lenguajes compilados
--   El mismo código puede funcionar en múltiples plataformas: **mayor portabilidad**
--   **Usos**: aplicaciones web, programas multiplataforma, automatización...
--   *Ejemplos*: **Python**, Perl, PHP, Scratch...
-:::
-
-:::
-
-Esta comparación es una simplificación: un mismo lenguaje puede combinar compilación e interpretación. Algunas librerías de Python utilizan internamente código escrito en lenguajes como C o C++ para realizar determinadas tareas de forma más eficiente. NumPy, que se utilizará para trabajar con datos numéricos, es un ejemplo (TODO: Citar la sección, todavía sin definir).
-
-Los siguientes códigos muestran dos fragmentos que escriben los números del 0 al 4. No es necesario comprender todavía cada instrucción; permiten comparar la sintaxis de C (lenguaje compilado) y Python (lenguaje interpretado).
-
-::: {.columns}
-
-::: {.column width="50%"}
-
-```c
-// C
-for (int i = 0; i < 5; i++) {
-    printf("%d\n", i);
-}
-```
- 
-:::
-::: {.column width="50%"}
-
-```py
-# Python
-for i in range(5):
-    print(i)
-
-```
-
-:::
-:::
-
-Python expresa la misma operación con menos elementos de sintaxis. C requiere declarar el tipo de la variable (int) y utilizar llaves y puntos y coma; Python delimita el bloque mediante la sangría.
+Es un lenguaje de **alto nivel**: permite expresar instrucciones mediante palabras y estructuras que facilitan su lectura, sin escribir directamente las instrucciones que procesa el ordenador.
 
 ## Detalles prácticos
 
-Antes de ejecutar código de Python, es necesario instalar un **intérprete de Python**. El intérprete es un programa instalado en el ordenador que se encarga de ejecutar el código.
+Antes de comenzar a programar en Python, conviene recordar algunos conceptos básicos introducidos en el bloque de R.
 
-Existen distintos programas capaces de ejecutar código Python. El más utilizado es CPython, el intérprete que se empleará en este curso. Su proceso de ejecución puede resumirse en los siguientes pasos:
+| Concepto | Definición |
+| -------- | ---------- |
+| Código o *script* | Conjunto de instrucciones escritas en un lenguaje de programación para realizar determinadas tareas. |
+| Intérprete | Programa que permite ejecutar código escrito en un lenguaje de programación. |
+| Multiplataforma | Característica que permite utilizar un programa en distintos sistemas operativos, como Windows, macOS o Linux. |
 
-1. El intérprete lee el archivo `.py` o las instrucciones escritas en Python
-2. El código se compila/traduce a una representación intermedia denominada *bytecode*
-3. La **máquina virtual de Python** (PVM, *Python Virtual Machine*) ejecuta ese *bytecode*
+Python, al igual que R, es un lenguaje de programación **multiplataforma**. Esto significa que un mismo programa puede ejecutarse en distintos sistemas operativos, generalmente sin necesidad de modificar su código.
 
-Cuando un programa necesita interactuar con el ordenador, por ejemplo, leer un archivo, mostrar información en pantalla o conectarse a una red, Python utiliza las funciones proporcionadas por el sistema operativo y otras librerías. Por tanto, el código de Python no interactúa directamente con el *hardware*.
+Para ejecutar las instrucciones escritas en Python se necesita un **intérprete**, un programa encargado de procesarlas y ejecutarlas. Existen distintas implementaciones de Python, es decir, programas que permiten ejecutar código escrito en este lenguaje. La más utilizada es **CPython**, que se empleará en este curso.
 
-De forma simplificada, el flujo puede representarse así:
+Por tanto, antes de ejecutar código Python, es necesario disponer de una instalación que incluya un intérprete compatible.
 
-```text
-Código en Python (.py)
-        |
-        .
-Intérprete de Python
-        |
-        .
-Bytecode
-        |
-        .
-Máquina virtual de Python
-        |
-        .
-Sistema operativo
-        |
-        .
-Hardware
-```
+## Detalles prácticos
 
-Esta separación permite que gran parte del mismo código pueda ejecutarse en distintos sistemas operativos. Por este motivo, Python es **multiplataforma**: un programa puede ejecutarse en Windows, macOS o Linux, siempre que el sistema disponga de un intérprete de Python compatible.
+Antes de comenzar a programar en Python, conviene recordar algunos conceptos básicos introducidos en el bloque de R.
 
-En la siguiente sección se explican los pasos necesarios para instalar el intérprete de Python en Windows.
+| Concepto | Definición |
+|---|---|
+| Código o *script* | Conjunto de instrucciones escritas en un lenguaje de programación para realizar determinadas tareas. |
+| Intérprete | Programa que permite ejecutar código escrito en un lenguaje de programación. |
+| Multiplataforma | Característica que permite utilizar un programa en distintos sistemas operativos, como Windows, macOS o Linux. |
+
+Python, al igual que R, es un lenguaje de programación **multiplataforma**. Esto significa que un mismo programa puede ejecutarse en diferentes sistemas operativos, generalmente sin necesidad de modificar su código.
+
+Para ejecutar las instrucciones escritas en Python se necesita un **intérprete**, un programa encargado de procesarlas y ejecutarlas. Existen diferentes implementaciones de Python, pero la más utilizada es **CPython**, que se empleará en este curso.
+
+### ¿Cómo se ejecuta el código de Python?
+
+El código escrito en Python se denomina **código fuente**. Contiene instrucciones que el procesador del ordenador no puede ejecutar directamente.
+
+Para ejecutarlas, CPython transforma primero el código fuente en instrucciones intermedias, denominadas *bytecode*. A continuación, un componente del intérprete llamado **máquina virtual de Python** ejecuta esas instrucciones.
+
+Este proceso combina dos mecanismos:
+
+- **Compilación:** transformación del código fuente en otro conjunto de instrucciones.
+- **Interpretación:** ejecución de instrucciones mediante un programa intérprete.
+
+Ambos mecanismos se realizan automáticamente, sin necesidad de que se intervenga en el proceso.
+
+La existencia de intérpretes compatibles con distintos sistemas operativos permite ejecutar programas de Python en Windows, macOS y Linux. No obstante, algunos programas pueden requerir adaptaciones cuando dependen de herramientas específicas de cada sistema.
+
+::: {.callout-note}
+
+Python permite utilizar bibliotecas desarrolladas en otros lenguajes de programación, como C o C++, cuyo código puede compilarse a instrucciones ejecutables directamente por el procesador. Esto permite realizar determinadas operaciones de forma más rápida que con código Python convencional. Un ejemplo es NumPy, una biblioteca especializada en cálculo numérico.
+
+:::
 
 ## Referencias
 
