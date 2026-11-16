@@ -2,7 +2,7 @@
 
 Material docente del curso introductorio de programación en Python del **Máster Universitario en Ciencia y Tecnología de la Información Geográfica (CTIG)**.
 
-El repositorio contiene los contenidos teóricos del curso, ejercicios, notebooks de Jupyter y ejemplos de código en Python. La documentación principal está desarrollada como un libro con [Quarto](https://quarto.org/).
+El repositorio contiene los contenidos teóricos del curso, ejercicios, notebooks de Jupyter y ejemplos de código en Python. La documentación principal está desarrollada como un libro de [Quarto](https://quarto.org/).
 
 ## Estructura del repositorio
 
@@ -21,15 +21,15 @@ intro_python/
 
 ## Requisitos
 
-Para generar el libro es necesario tener instalado [Quarto](https://quarto.org/docs/get-started/).
+Es necesario tener instalado [Quarto](https://quarto.org/docs/get-started/).
 
-Para comprobar la instalación:
+La instalación puede comprobarse con:
 
 ```bash
 quarto --version
 ```
 
-La generación de la versión PDF requiere además una distribución de LaTeX compatible con Quarto.
+Generar la versión PDF requiere además una distribución de LaTeX compatible con Quarto.
 
 ## Renderizar el libro
 
@@ -68,6 +68,8 @@ quarto preview
 ```
 
 Quarto actualizará automáticamente el libro al detectar cambios en los archivos `.qmd`.
+
+**Importante**: Durante la previsualización, se genera un servidor local que permite mostrar todas las características de los estilos de Quarto. Si se abre el archivo `index.html`, es posible que algunas funciones, como el índice de contenidos, no funcionen correctamente. Será necesario subir los archivos a un servidor o crear uno virtual para poder ver el libro igual que en la vista previa de Quarto.
 
 ## Contenido del curso
 
