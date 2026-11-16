@@ -1,223 +1,265 @@
 # Instalación {#sec-installation}
 
-Python puede instalarse directamente desde la [página del proyecto](https://www.python.org/). Sin embargo, en este curso se utilizará otro procedimiento que facilita la gestión de diferentes versiones de Python y de sus paquetes.
+Python puede instalarse directamente desde la [página oficial del proyecto](https://www.python.org/). Sin embargo, en este curso se utilizará un procedimiento que facilita la gestión de diferentes versiones de Python y de sus paquetes.
 
-Los **paquetes** amplían las funciones disponibles en Python. En el ámbito del análisis espacial, permiten realizar tareas como leer datos ráster, trabajar con geometrías o realizar análisis espaciales.
-
-Esta gestión resulta especialmente útil porque programas como QGIS o ArcGIS Pro incluyen sus propios intérpretes de Python y bibliotecas geoespaciales.
-
-Además, instalar los paquetes que permiten trabajar con información geográfica (como `rasterio` o `geopandas`) no es tan sencillo como podría parecer. Existen dependencias o módulos específicos (como `GDAL` o `PROJ`), que tienen que ser instalados junto a ellos, y un error en la instalación puede causar conflictos o errores en el futuro (ver @sec-conda, tercer párrafo).
+Los **paquetes** son conjuntos de código que amplían las funcionalidades de Python, de forma similar a los paquetes de R. En el ámbito del análisis espacial, permiten realizar tareas como leer datos ráster, trabajar con geometrías o efectuar operaciones espaciales.
 
 ## El problema de las versiones
 
-Cada instalación de Python utiliza una versión concreta del intérprete, como Python 3.12 o Python 3.13. Además, un mismo ordenador puede contener varias instalaciones. Por ejemplo, QGIS o ArcGIS Pro pueden utilizar su propio Python, mientras que otros proyectos utilizan una instalación diferente.
+Al instalar Python, se instala un **intérprete**, es decir, el programa encargado de ejecutar el código escrito en este lenguaje. Cada instalación utiliza una versión concreta, como Python 3.12 o Python 3.13.
 
-La coexistencia de varias versiones no supone un problema, siempre y cuando cada proyecto utilice el intérprete y los paquetes adecuados. Las dificultades aparecen cuando varios proyectos comparten una misma instalación de Python y requieren versiones diferentes de sus paquetes o dependencias.
+Un mismo ordenador puede contener varias instalaciones de Python. Por ejemplo, QGIS y ArcGIS Pro pueden utilizar sus propias instalaciones, mientras que otros proyectos emplean versiones diferentes.
 
-Por ejemplo, un usuario puede crear un programa que necesite una versión reciente de `rasterio` que incorpora una función necesaria para procesar determinados datos ráster. Al instalar esa versión en el Python utilizado por el sistema, también pueden cambiar algunas de sus dependencias, como NumPy o GDAL.
+Esta coexistencia no supone un problema siempre que cada proyecto utilice el intérprete y los paquetes adecuados. Las dificultades aparecen cuando varios proyectos comparten una misma instalación y necesitan versiones incompatibles de sus paquetes o **dependencias**, es decir, otros componentes necesarios para su funcionamiento.
 
-Si otro programa utilizaba ese mismo intérprete y dependía de versiones anteriores de esos paquetes, el cambio puede hacer que deje de funcionar. El nuevo programa funciona correctamente, pero una aplicación que antes funcionaba con esa instalación de Python puede empezar a producir errores.
+Por ejemplo, un proyecto puede necesitar una versión reciente de `rasterio`, un paquete utilizado para trabajar con datos ráster. Su instalación puede requerir la actualización de otras dependencias, como NumPy o GDAL.
 
-El problema puede agravarse cuando se modifica el entorno de Python utilizado internamente por un SIG. Actualizar manualmente alguno de sus paquetes puede introducir versiones incompatibles con otras herramientas del programa (@fig-qgis-error).
+Si otro programa utiliza la misma instalación de Python y necesita versiones anteriores de esas dependencias, la actualización puede provocar errores. De esta forma, **la instalación de un paquete para un proyecto puede afectar al funcionamiento de otro**.
 
-![Mensaje de error mostrado por el software QGIS en una máquina con problemas de versiones entre sus diferentes paquetes de Python.](../images/book/python_qgis_error.png){#fig-qgis-error}
+El problema es especialmente relevante cuando se modifica la instalación de Python utilizada internamente por un SIG. La actualización manual de sus paquetes puede introducir incompatibilidades que impidan ejecutar algunas herramientas del programa (@fig-qgis-error).
 
-Estos conflictos pueden evitarse mediante **entornos** de Python.
+![Mensaje de error de QGIS relacionado con incompatibilidades entre paquetes de Python.](../images/book/python_qgis_error.png){#fig-qgis-error}
 
-## Entornos o *Environments*
+Además, algunos paquetes espaciales, como `rasterio` o `geopandas`, dependen de bibliotecas externas, como GDAL o PROJ. Estas bibliotecas proporcionan funcionalidades para procesar información geográfica y pueden requerir componentes adicionales. La instalación y compatibilidad de estas dependencias pueden complicar la configuración de Python.
 
-Un entorno **mantiene un conjunto independiente de paquetes y una versión específica de Python**. Así, cada proyecto puede disponer de las versiones que necesita sin modificar las del resto.
+Para reducir estos problemas, pueden utilizarse **entornos independientes**.
 
-### El ecosistema Conda {#sec-conda}
+## Entornos de Python
 
-Para crear estos entornos e instalar los paquetes necesarios existen diferentes herramientas. En este curso se utilizarán herramientas del **ecosistema Conda**.
+Un **entorno** es un espacio de trabajo que contiene una versión de Python y un conjunto de paquetes específicos.
 
-[Conda](https://docs.conda.io/projects/conda/en/latest/index.html) es un sistema para **gestionar paquetes y entornos de trabajo**. Permite crear un entorno independiente para cada proyecto e instalar dentro de él una versión concreta de Python junto con los paquetes necesarios.
+Cada proyecto puede disponer de su propio entorno, con las versiones que necesita, sin modificar las utilizadas por otros proyectos. Así, es posible trabajar con diferentes configuraciones de Python en un mismo ordenador.
 
-Además, Conda no se limita a instalar paquetes de Python. También instala los programas externos de los que dependen muchos paquetes. Esto resulta especialmente útil en ámbitos como el análisis espacial, donde se requieren herramientas (como `GDAL` o `PROJ`) que no forman parte directamente de Python.
+### Conda, conda-forge y Miniforge {#sec-conda}
 
-Para instalar estos programas, las herramientas del ecosistema Conda descargan paquetes desde **repositorios**, también llamados **canales**. Uno de los canales más utilizados es **conda-forge**, que será el empleado en este curso. Es el canal que cuenta con las versiones más actualizadas de los paquetes espaciales.
+Existen diferentes herramientas para crear entornos e instalar paquetes. En este curso se utilizarán las del **ecosistema Conda**.
 
-Existen varias herramientas que integran el ecosistema Conda. En este curso se utilizará [Miniforge](https://conda-forge.org/), que contiene las funciones de Conda para la gestión de entornos mantenida por la comunidad de conda-forge.
+[Conda](https://docs.conda.io/projects/conda/en/latest/index.html) es un **gestor de paquetes y entornos**. Permite crear entornos independientes, instalar versiones concretas de Python y gestionar sus dependencias.
 
-### conda-forge y Miniforge {#sec-recipes}
+Una de sus ventajas es que no se limita a los paquetes de Python. También puede instalar bibliotecas y programas externos de los que dependen, como GDAL o PROJ. Esto facilita la configuración de entornos para el análisis espacial.
 
-El canal de [conda-forge](https://conda-forge.org/) es un proyecto comunitario. Mantiene un amplio repositorio de paquetes en formato **conda**, preparados para ser instalados mediante los gestores de paquetes.
+Conda obtiene los paquetes de **canales**, que son repositorios desde los que pueden descargarse paquetes preparados para diferentes sistemas operativos.
 
-El proyecto mantiene *recetas*: archivos que indican cómo preparar cada paquete y qué otros paquetes necesita. Estos últimos se denominan **dependencias**. Se verá con detalle un ejemplo en la @sec-install-env.
+Uno de los canales más utilizados es [conda-forge](https://conda-forge.org/), un proyecto comunitario que proporciona una amplia colección de paquetes, incluidos numerosos paquetes para el análisis espacial.
 
-La herramienta Miniforge utiliza por defecto este canal. Es posible que algún alumno con conocimientos previos de Python haya oído hablar de Miniconda o Anaconda. Ambos son distribuciones que integran Conda, similares a Miniforge, pero están asociadas con el canal por defecto de la compañía Anaconda. Este canal está sujeto a sus términos y condiciones, y podrían requerirse licencias especiales para poder utilizarse. Miniforge y el canal `conda-forge` evitan este hecho.
+Para instalar Conda se utilizará [Miniforge](https://github.com/conda-forge/miniforge), una distribución mínima que incluye el gestor Conda y configura conda-forge como canal predeterminado.
 
-::: {.callout-note}
+Existen otras distribuciones que incluyen Conda, como Miniconda y Anaconda. Estas utilizan por defecto repositorios de la empresa Anaconda, cuyo acceso está sujeto a condiciones de uso que, en determinados contextos comerciales, pueden requerir una licencia. Miniforge utiliza conda-forge por defecto, un canal comunitario que no está sujeto a esos requisitos comerciales específicos.
 
-Existe una alternativa a Miniforge, [utilizada en algunos cursos de Python y GIS](https://kodu.ut.ee/~kmoch/geopython2023/): [Micromamba](https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html)
+::: {.callout-note collapse="true" title="Micromamba: una alternativa a Miniforge"}
 
-Micromamba es un sistema de gestión de entornos compatible con Conda, que no necesita ser instalado previamente. Por lo tanto, el proceso de instalación es mucho más rápido que Miniforge. Tan solo se requiere descargar el ejecutable, un único fichero, pequeño e independientemente del sistema operativo. Tampoco requiere de permisos de administrador.
+Otra opción para gestionar entornos es [Micromamba](https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html), utilizado también en algunos [cursos de Python y SIG](https://kodu.ut.ee/~kmoch/geopython2023/).
 
-Sin embargo, los comandos pueden variar ligeramente de los utilizados por Conda, y la integración con las IDE no es tan eficaz como Miniforge.
+Micromamba es un gestor de paquetes y entornos compatible con Conda. A diferencia de Miniforge, no necesita instalar previamente Python ni una distribución de Conda, ya que funciona mediante un ejecutable independiente.
 
-Los pasos para su instalación pueden consultarse en la [documentación oficial](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html#manual-installation)
+Su pequeño tamaño facilita la instalación y permite gestionar entornos sin disponer de una instalación previa de Python. Además, normalmente no requiere permisos de administrador.
 
+Aunque los comandos son similares a los de Conda, existen algunas diferencias en su configuración y utilización.
+
+En este curso se utilizará Miniforge para mantener un procedimiento de instalación común.
+
+Las instrucciones de instalación de Micromamba pueden consultarse en su [documentación oficial](https://mamba.readthedocs.io/en/stable/installation/micromamba-installation.html).
 :::
+
+### conda-forge y sus paquetes {#sec-recipes}
+
+El proyecto conda-forge mantiene un repositorio de paquetes que pueden instalarse mediante gestores compatibles con Conda.
+
+Para preparar estos paquetes se utilizan **recetas**, que son archivos donde se especifican los componentes necesarios para construir cada paquete, sus dependencias y otros requisitos técnicos.
+
+El gestor de paquetes utiliza la información de las dependencias para seleccionar versiones compatibles e instalar los componentes necesarios. En la @sec-install-env se mostrará un ejemplo de este proceso.
 
 ## Instalación de Miniforge en Windows {#sec-install-miniforge}
 
-En este curso se utilizará **Miniforge** para crear y gestionar los entornos de Python. Se explica aquí cómo instalarlo en Windows. Para otros sistemas operativos, consultar la [página de descarga de Miniforge](https://conda-forge.org/download/).
+En este curso se utilizará **Miniforge** para crear y gestionar entornos de Python. A continuación, se explica cómo instalarlo en Windows. Las instrucciones para otros sistemas operativos están disponibles en la [página de descarga de Miniforge](https://conda-forge.org/download/).
 
-Durante la clase, y con el objetivo de familiarizarse con una consola de comandos, se realizará una instalación utilizando la consola de PowerShell. Sin embargo, también pude realizarse una instalación manual (ver @sec-manual-install).
+Durante la clase se realizará la instalación mediante **PowerShell**, una consola de comandos de Windows que permite ejecutar instrucciones escritas. El objetivo es familiarizarse con su funcionamiento. Como alternativa, también puede utilizarse el instalador gráfico (ver @sec-manual-install).
+
+Los procedimientos están dirigidos a equipos Windows de 64 bits con procesadores x86-64. Para ordenadores con procesadores ARM64, debe descargarse el [instalador correspondiente](https://conda-forge.org/download/).
+
+::: {.callout-note}
+Se recomienda instalar Miniforge en una carpeta cuya ruta no contenga espacios ni caracteres especiales, como tildes o la letra ñ. Estas características pueden causar problemas en algunas instalaciones.
+
+La instalación se guardará en la carpeta `miniforge3` situada dentro del **directorio personal** de Windows (normalmente `C:\Users\<nombre-de-usuario>s`). Si esta ruta contiene caracteres problemáticos, conviene elegir otra ubicación con permisos de escritura.
+:::
 
 ### Instalación desde PowerShell
 
-Se busca PowerShell en el menú de Windows y se abre una terminal. No es necesario ejecutarla como administrador.
+Se busca **PowerShell** en el menú de inicio de Windows y se abre una terminal. No es necesario ejecutarla como administrador.
 
-Copia y ejecuta los siguientes comandos por separado, pulsando *Enter* después de cada uno.
+Los siguientes comandos deben copiarse y ejecutarse por separado, pulsando *Enter* después de cada uno.
 
 #### 1. Descargar el instalador {.unnumbered}
 
-Acceder al directorio personal del usuario (donde se guardará el ejecutable el archivo):
+En primer lugar, se accede al **directorio personal**, que es la carpeta donde Windows almacena los archivos de cada cuenta:
 
 ```powershell
 Set-Location $env:USERPROFILE
 ```
 
-Se descarga la última versión de Miniforge para Windows. La siguiente línea oculta la barra de progreso, que en algunas versiones de PowerShell ralentiza mucho la descarga.
+La siguiente instrucción desactiva la barra de progreso de PowerShell, que puede ralentizar las descargas:
 
 ```powershell
 $ProgressPreference = 'SilentlyContinue'
 ```
 
-El archivo ocupa alrededor de 90 MB, por lo que la descarga puede tardar unos minutos.
+A continuación, se descarga la versión más reciente de Miniforge para Windows x86-64 desde el repositorio oficial del proyecto:
 
 ```powershell
-Invoke-WebRequest -Uri https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe -OutFile Miniforge3.exe
+Invoke-WebRequest -Uri "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Windows-x86_64.exe" -OutFile Miniforge3.exe
 ```
+
+El tamaño del archivo depende de la versión y la descarga puede tardar unos minutos.
 
 #### 2. Ejecutar el instalador {.unnumbered}
 
-Se ejecuta el instalador sin ventanas, indicando las mismas opciones que se elegirían en el asistente:
+Se ejecuta el instalador en **modo silencioso**, es decir, sin mostrar el asistente gráfico y utilizando las opciones indicadas en el comando:
 
 ```powershell
 Start-Process -Wait -FilePath .\Miniforge3.exe -ArgumentList "/InstallationType=JustMe /RegisterPython=0 /AddToPath=0 /S /D=$env:USERPROFILE\miniforge3"
 ```
 
-La instalación no muestra ningún mensaje y puede tardar uno o dos minutos. Termina cuando vuelve a aparecer la línea de comandos.
+Las opciones utilizadas permiten instalar Miniforge únicamente para la cuenta actual (`JustMe`), sin registrarlo como la instalación predeterminada de Python (`RegisterPython=0`) ni añadirlo a la variable de entorno `PATH` (`AddToPath=0`).
 
-#### 3. Configurar PowerShell para usar Conda {.unnumbered}
+Esta última opción evita que los ejecutables de Miniforge interfieran con otros programas que utilizan Python, como QGIS o ArcGIS Pro.
 
-Tras la instalación, Conda solo está disponible desde una consola específica llamada **Miniforge Prompt**. Para poder utilizarlo desde cualquier terminal de PowerShell, incluida las de una IDE, es activar conda dentro de PowerShell con la siguiente línea:
+La instalación puede tardar unos minutos. Al finalizar, vuelve a aparecer la línea de comandos.
+
+#### 3. Configurar PowerShell para utilizar Conda {.unnumbered}
+
+Tras la instalación, Conda puede utilizarse desde **Miniforge Prompt**, una consola que se incorpora al menú de inicio de Windows.
+
+Para utilizarlo también desde PowerShell, se ejecuta:
 
 ```powershell
 & "$env:USERPROFILE\miniforge3\Scripts\conda.exe" init powershell
 ```
 
-Después, se desactiva el inicio automático con:
+Este comando configura PowerShell para reconocer las instrucciones de Conda al abrir nuevas terminales.
+
+A continuación, se desactiva la activación automática del entorno `base`:
 
 ```powershell
 & "$env:USERPROFILE\miniforge3\Scripts\conda.exe" config --set auto_activate false
 ```
 
-La línea anterior previene la inicialización por defecto de Conda, que podría ocasionar problemas con otros programas (incluidos R y Arcgis Pro).
+El entorno `base` contiene los componentes utilizados por Conda para su propio funcionamiento. Desactivar su activación automática permite abrir PowerShell sin entrar directamente en este entorno y reduce las interferencias con otras herramientas.
 
-Al finalizar la instalación de Miniforge, en algunas versiones puede haber aparecido un mensaje que comienza por `WARNING` y sugiere utilizar `conda-pypi`. Es solo un consejo informativo, no un error, y puede ignorarse. Para evitar que este mensaje salga cada vez que se cree un nuevo entorno de trabajo con Python, ejecutar la siguiente línea:
-
-```powershell
-& "$env:USERPROFILE\miniforge3\Scripts\conda.exe" config --set plugins.conda_pypi_pip_warning false
-```
-
-Al finalizar, cerrar la consola.
+Al terminar, se cierra la terminal para que los cambios de configuración se apliquen al abrir una nueva.
 
 ### Instalación manual {#sec-manual-install}
 
+Miniforge también puede instalarse mediante un asistente gráfico, sin introducir comandos durante la instalación.
+
 #### 1. Descargar el instalador {.unnumbered}
 
-Se accede a la [página de descarga de Miniforge](https://conda-forge.org/download/) y se descarga el instalador para **Windows x86_64**. Se obtendrá un archivo similar a `Miniforge3-Windows-x86_64.exe`.
+Se accede a la [página de descarga de Miniforge](https://conda-forge.org/download/) y se descarga el instalador correspondiente a la arquitectura del equipo.
+
+En la mayoría de los ordenadores Windows con procesadores Intel o AMD de 64 bits, el archivo se denomina:
+
+`Miniforge3-Windows-x86_64.exe`
 
 #### 2. Ejecutar el instalador {.unnumbered}
 
 Se hace doble clic sobre el archivo descargado y se siguen los pasos del asistente:
 
-1. Pulsar *Next* y aceptar la licencia con *I Agree*.
-2. En el tipo de instalación, seleccionar **Just Me**. De esta forma no se necesitan permisos de administrador.
-3. Mantener la carpeta de instalación propuesta, similar a `C:\Users\nombre_usuario\miniforge3`.
-4. En las opciones avanzadas, mantener las opciones marcadas por defecto. **No** es necesario marcar *Add Miniforge3 to my PATH environment variable*.
-5. Pulsar *Install* y, al terminar, *Finish*.
+1. Pulsar *Next* y aceptar la licencia mediante *I Agree*.
+2. Seleccionar **Just Me** como tipo de instalación. De esta forma, normalmente no se requieren permisos de administrador.
+3. Mantener la carpeta de instalación propuesta, habitualmente `C:\Users\nombre_usuario\miniforge3`, siempre que no contenga caracteres problemáticos.
+4. Mantener las opciones avanzadas recomendadas por el instalador. No seleccionar *Add Miniforge3 to my PATH environment variable*.
+5. Pulsar *Install* y, al finalizar, *Finish*.
 
-::: {.callout-note}
+#### 3. Configurar PowerShell para utilizar Conda {.unnumbered}
 
-Es recomendable que la ruta de instalación no contenga espacios ni caracteres especiales (tildes, ñ...). Si el nombre de usuario los contiene, puede indicarse otra carpeta, por ejemplo `C:\miniforge3`.
+Se busca **Miniforge Prompt** en el menú de inicio de Windows y se abre la consola.
 
-:::
-
-#### 3. Configurar PowerShell para usar Conda {.unnumbered}
-
-Se busca **Miniforge Prompt** en el menú de Windows, se abre y se ejecuta:
+A continuación, se ejecuta:
 
 ```{.powershell #lst-conda-init lst-cap="Inicialización de Conda en PowerShell"}
 conda init powershell
 ```
 
-Después, se ejecuta la siguiente línea. Previene la inicialización por defecto de Conda, que podría ocasionar problemas con otros programas (incluidos R y Arcgis Pro).
+Esta instrucción permite utilizar Conda directamente desde nuevas terminales de PowerShell.
+
+Después, se desactiva la activación automática del entorno `base`:
 
 ```powershell
 conda config --set auto_activate false
 ```
 
-Al finalizar la instalación de Miniforge, en algunas versiones puede haber aparecido un mensaje que comienza por `WARNING` y sugiere utilizar `conda-pypi`. Es solo un consejo informativo, no un error, y puede ignorarse. Para evitar que este mensaje salga cada vez que se cree un nuevo entorno de trabajo con Python, ejecutar la siguiente línea:
-
-```powershell
-conda config --set plugins.conda_pypi_pip_warning false
-```
-
-Al finalizar, cerrar la ventana.
-
+Al finalizar, se cierra la ventana para aplicar los cambios.
 
 ::: {.callout-note}
 
-Cuan se realiza la instalación desde PowerShell, en lugar de `conda` se escribe al inicio de la línea:
+En **Miniforge Prompt**, Conda está disponible directamente mediante el comando `conda`.
+
+En una terminal de PowerShell que todavía no se haya configurado, puede ejecutarse Conda indicando la ruta completa a su archivo ejecutable:
 
 ```powershell
 & "$env:USERPROFILE\miniforge3\Scripts\conda.exe"
 ```
 
-Se puede sustituir dentro de la consola de Miniforge por `conda` ya que la ruta al ejecutable (`conda.exe`) ha sido predefinida por defecto.
-
+La ruta anterior debe adaptarse si Miniforge se ha instalado en otra carpeta. Tras ejecutar `conda init powershell` y abrir una nueva terminal, podrá utilizarse directamente el comando `conda`.
 :::
-
 
 ### Comprobar la instalación
 
-Se abre una terminal de **PowerShell** nueva y se ejecuta:
+Una vez finalizada la instalación mediante cualquiera de los dos procedimientos, se abre una **nueva terminal de PowerShell**.
+
+Se ejecuta:
 
 ```powershell
 conda --version
 ```
 
-Si aparece un número de versión, por ejemplo `conda 25.x.x`, la instalación se ha realizado correctamente. Además, al inicio de la línea de comandos debería aparecer `(base)`, lo que indica que Conda está activo.
+Si aparece un número de versión, por ejemplo `conda 26.x.x`, significa que Conda se ha instalado y PowerShell puede reconocer sus comandos.
 
-Para desactivar conda en PowerShell, si se deja de trabajar con el programa, es tan sencillo como:
+No debería aparecer `(base)` al inicio de la línea de comandos, ya que se ha desactivado la activación automática de ese entorno.
+
+Para consultar los entornos disponibles, puede ejecutarse:
 
 ```powershell
-conda init --reverse powershell
+conda env list
 ```
 
-::: {.callout-note}
+Inicialmente, debería aparecer al menos el entorno `base`, acompañado de su ruta de instalación. Su presencia en la lista no significa que esté activo.
 
-Si al abrir PowerShell aparece un mensaje de error relacionado con una excepción de seguridad o con el archivo `profile.ps1`, puede ser necesario modificar la política de ejecución de PowerShell. Esta es una medida de seguridad de Windows que restringe la ejecución de determinados scripts.
+En la @sec-install-env se creará y activará un entorno específico para el curso.
 
-Para permitir la ejecución de scripts locales, ejecutar en PowerShell:
+### Solución de problemas
+
+#### Error de seguridad al abrir PowerShell {.unnumbered}
+
+En algunos equipos, al abrir PowerShell después de ejecutar `conda init`, puede aparecer un error relacionado con la ejecución de scripts o con el archivo `profile.ps1`.
+
+Esto ocurre cuando la **política de ejecución de PowerShell**, una configuración de seguridad de Windows, impide cargar los archivos necesarios para inicializar Conda.
+
+Si se dispone de autorización para modificar esta configuración, puede ejecutarse:
 
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
-A continuación, cerrar PowerShell y abrir una terminal nueva.
+Este comando permite ejecutar scripts locales y establece restricciones para los scripts descargados de Internet. El cambio se aplica a la cuenta actual de Windows.
 
-Si el problema persiste en un ordenador del aula, se debe consultar al profesorado antes de modificar otras políticas.
+A continuación, se cierra PowerShell y se abre una nueva terminal.
 
-:::
+En equipos administrados por una organización, las políticas de seguridad pueden impedir esta modificación. En ese caso, debe consultarse al personal responsable del equipo o utilizar Miniforge Prompt.
+
+#### Aviso relacionado con conda-pypi {.unnumbered}
+
+Al instalar paquetes, algunas versiones de Conda pueden mostrar un mensaje informativo que recomienda utilizar `conda-pypi`.
+
+Este aviso no indica un error y puede ignorarse. Si se desea ocultarlo en futuras instalaciones, se puede ejecutar:
+
+```powershell
+conda config --set plugins.conda_pypi_pip_warning false
+```
+
+Este ajuste es opcional y no afecta a la instalación ni al funcionamiento habitual de los entornos.
 
 ::: {.callout-warning}
+El entorno `base` contiene la instalación de Conda y sus componentes esenciales. **No se recomienda instalar en él los paquetes de los proyectos.**
 
-El entorno `base` contiene la propia instalación de Conda. **No se deben instalar paquetes en él.** En la @sec-install-env se creará un entorno específico para el curso.
-
+Para evitar conflictos, cada proyecto debería disponer de un entorno independiente. En la @sec-install-env se creará uno específico para este curso.
 :::
