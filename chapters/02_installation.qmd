@@ -50,7 +50,7 @@ Existen otras distribuciones que incluyen Conda, como Miniconda y Anaconda. Esta
 
 Otra opción para gestionar entornos es [Micromamba](https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html), utilizado también en algunos [cursos de Python y SIG](https://kodu.ut.ee/~kmoch/geopython2023/).
 
-Micromamba es un gestor de paquetes y entornos compatible con Conda. A diferencia de Miniforge, no necesita instalar previamente Python ni una distribución de Conda, ya que funciona mediante un ejecutable independiente.
+Micromamba es un gestor de paquetes y entornos compatible con Conda. Funciona mediante un único ejecutable, sin instalador.
 
 Su pequeño tamaño facilita la instalación y permite gestionar entornos sin disponer de una instalación previa de Python. Además, normalmente no requiere permisos de administrador.
 
@@ -80,14 +80,14 @@ Los procedimientos están dirigidos a equipos Windows de 64 bits con procesadore
 ::: {.callout-note}
 Se recomienda instalar Miniforge en una carpeta cuya ruta no contenga espacios ni caracteres especiales, como tildes o la letra ñ. Estas características pueden causar problemas en algunas instalaciones.
 
-La instalación se guardará en la carpeta `miniforge3` situada dentro del **directorio personal** de Windows (normalmente `C:\Users\<nombre-de-usuario>s`). Si esta ruta contiene caracteres problemáticos, conviene elegir otra ubicación con permisos de escritura.
+La instalación se guardará en la carpeta `miniforge3` situada dentro del **directorio personal** de Windows (normalmente `C:\Users\<nombre-de-usuario>`). Si esta ruta contiene caracteres problemáticos, conviene elegir otra ubicación con permisos de escritura.
 :::
 
 ### Instalación desde PowerShell
 
 Se busca **PowerShell** en el menú de inicio de Windows y se abre una terminal. No es necesario ejecutarla como administrador.
 
-Los siguientes comandos deben copiarse y ejecutarse por separado, pulsando *Enter* después de cada uno.
+Los siguientes comandos deben copiarse y ejecutarse por separado, pulsando `Enter` después de cada uno.
 
 #### 1. Descargar el instalador {.unnumbered}
 
@@ -165,7 +165,7 @@ Se hace doble clic sobre el archivo descargado y se siguen los pasos del asisten
 
 1. Pulsar *Next* y aceptar la licencia mediante *I Agree*.
 2. Seleccionar **Just Me** como tipo de instalación. De esta forma, normalmente no se requieren permisos de administrador.
-3. Mantener la carpeta de instalación propuesta, habitualmente `C:\Users\nombre_usuario\miniforge3`, siempre que no contenga caracteres problemáticos.
+3. Mantener la carpeta de instalación propuesta, habitualmente `C:\Users\nombre-de-usuario\miniforge3`, siempre que no contenga caracteres problemáticos.
 4. Mantener las opciones avanzadas recomendadas por el instalador. No seleccionar *Add Miniforge3 to my PATH environment variable*.
 5. Pulsar *Install* y, al finalizar, *Finish*.
 

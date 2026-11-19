@@ -1,1 +1,38 @@
-PEP 8 y `ruff`
+# Fundamentos básicos de Python
+
+En esta sección, se utilizan una serie de cuadernos Jupyter con los que se muestran los fundamentos del lenguaje Python. Para poder ejecutarlos, previamente se han tenido que seguir los pasos descritos en @sec-first-steps.
+
+Dentro de la carpeta `<carpeta_curso>/notebooks/`, se encuentran los cuadernos que van a utilizarse en esta sección.
+
+## Abrir JupyterLab {#sec-open-jl}
+
+Si se ha instalado todo lo necesario para ejecutar Python dentro de Conda (@sec-installation), se puede abrir la aplicación JupyterLab siguiendo los pasos de @sec-init-jupyter:
+
+1. Abrir una nueva consola de PowerShell (por ejemplo con `Windows + X` > *Windows PowerShell* / *Terminal*)
+2. Navegar hasta la carpeta del curso utilizando la herramienta `cd`:
+
+    ```powershell
+    cd D:/ruta/carpeta/curso
+    ```
+
+## Fundamentos
+
+Los siguientes cuadernos introducen los conceptos generales del lenguaje Python. Se encuentran en la carpeta `notebooks/` del curso y se abren con JupyterLab, dentro del entorno `hello_world` (@sec-init-jupyter). Se recomienda seguirlos en orden, ya que cada uno utiliza conceptos de los anteriores.
+
+- [00_intro_jupyterlab.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/00_intro_jupyterlab.ipynb): funciones básicas de JupyterLab. Creación, ejecución y edición de celdas, modos de edición, atajos de teclado, configuración, núcleo (*kernel*), exportación de cuadernos y cierre de la sesión.
+- [01_estilo_comentarios.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/01_estilo_comentarios.ipynb): convenciones de estilo de la PEP 8 (longitud de línea, sangría, líneas en blanco y caracteres ASCII) y uso de comentarios y *docstrings* para documentar el código.
+- [02_variables.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/02_variables.ipynb): variables y tipos de datos básicos (`int`, `float`, `str` y `bool`). Operaciones con números y textos, métodos de texto, cadenas formateadas (*f-strings*), conversión entre tipos e interpretación de los errores `NameError` y `TypeError`.
+- [03_list_tuples_sets.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/03_list_tuples_sets.ipynb): listas, tuplas y conjuntos. Acceso por índice, modificación, ordenación, selección de fragmentos (*slicing*) y operaciones entre conjuntos. Incluye las cadenas de texto como secuencias y los métodos `.split()` y `.join()`.
+- [04_if_statements.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/04_if_statements.ipynb): estructuras condicionales `if`, `elif` y `else`. Operadores de comparación, de pertenencia (`in`) y lógicos (`and`, `or` y `not`), tratamiento de valores ausentes (`None`) y valores que se interpretan como verdaderos o falsos.
+- [05_loops_inputs.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/05_loops_inputs.ipynb): bucles `for` y `while`. Función `range()`, variables acumuladoras, asignación aumentada (`+=`), desempaquetado de tuplas, funciones `enumerate()` y `zip()`, comprensión de listas y bucles infinitos.
+- [06_dictionaries.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/06_dictionaries.ipynb): diccionarios. Pares clave-valor, consulta segura con `.get()`, adición, modificación y eliminación de pares, recorrido de claves y valores, y estructuras anidadas como las de un archivo GeoJSON.
+- [07_functions.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/07_functions.ipynb): definición y llamada de funciones. Parámetros y argumentos, *docstrings*, devolución de valores con `return` y variables locales.
+
+Cada cuaderno incluye ejercicios de refuerzo y ejemplos con errores intencionados, que se ejecutan para aprender a interpretar los mensajes de error de Python.
+
+
+::: {.callout-note}
+
+El curso de Python está basado en Python 3.x; algunas operaciones como los *f-strings* no están disponibles en las versiones de Python 2.x, por lo que es recomendable asegurarse de que la versión de Python con la que se está trabajando es la correcta. 
+
+:::

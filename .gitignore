@@ -5,6 +5,8 @@ _book/
 __pycache__/
 *.pyc
 /images/presentation
+/notebooks/solved_exercises
 /presentation
 /.quarto/
 **/*.quarto_ipynb
+99_*

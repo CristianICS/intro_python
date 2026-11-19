@@ -26,31 +26,31 @@ Durante las clases y ejercicios también se introducirán buenas prácticas de p
 
 El módulo incluye las siguientes clases teóricas y prácticas:
 
-| Día | Lección |
+| Clase | Lección |
 |---|---|
-| 19/11 | Introducción, instalación y primeros pasos |
-| 20/11 | [M1] Variables, estructuras, funciones y clases |
-| 23/11 | [M1] Métodos, bucles y estructuras de control |
-| 24/11 | [M1] Repaso: ejercicios prácticos y VSCodium |
-| 25/11 | [M1 y M2] *Scripting* y PEPs / Datos vectoriales y `pandas` |
-| 26/11 | [M2] Operaciones vectoriales y `geopandas` |
-| 27/11 | [M3] Datos ráster y `numpy` |
-| 30/11 | [M3] Operaciones ráster con `rasterio` y `gdal` |
-| 1/12 | [M3] Operaciones ráster con `rasterio` y `gdal` |
-| 2/12 | Sesión práctica: trabajar con el Inventario Forestal Nacional (IFN) mediante Python |
+| 1 | Introducción, instalación y primeros pasos |
+| 2 | [M1] Estilo, variables, tipos y estructuras de datos |
+| 3 | [M1] Estructuras de control, bucles, diccionarios y funciones |
+| 4 | [M1] Clases y OOP, excepciones y estructuras de datos relacionadas con la IG |
+| 5 | [M1 y M2] *Scripting*, VSCodium. Datos vectoriales y `pandas` |
+| 6 | [M2] Operaciones vectoriales y `geopandas` |
+| 7 | [M3] Datos ráster y `numpy` |
+| 8 | [M3] Operaciones ráster con `rasterio` y `gdal` |
+| 9 | [M3] Operaciones ráster con `rasterio` y `gdal` |
+| 10 | Sesión práctica: trabajar con el Inventario Forestal Nacional (IFN) |
 
 > *M* significa "Módulo". Los números hacen referencia a los [tres módulos](#sec-general) de esta parte de la asignatura.
 
-Al final de cada clase se propondrán ejercicios cortos que se resolverán al comienzo de la siguiente. Estos ejercicios no formarán parte de la evaluación.
+Durante las clases, se realizarán pequeños ejercicios de refuerzo que no formarán parte de la evaluación.
 
 ## Evaluación
 
-Los módulos de programación con Python se evaluarán, tanto en la convocatoria continua como en la global, mediante:
+El bloque de programación con Python se evaluará, tanto en la convocatoria continua como en la global, mediante:
 
-- Prueba escrita (60%): preguntas sobre los contenidos del módulo.
-- Prueba oral (40%): preguntas sobre un ejercicio sencillo resuelto previamente por el estudiante. La prueba durará un máximo de 5 minutos. Se proporcionará una plantilla con varios ejercicios, de los que el estudiante elegirá uno para resolver.
+- Examen (60%): preguntas sobre los contenidos del módulo.
+- Práctica (40%): preguntas sobre un ejercicio, que deberá resolverse previamente. La prueba durará un máximo de 5 minutos. Se proporcionará una plantilla con varios ejercicios, de los que el alumnado elegirá uno para resolver.
 
-Se permitirá el uso de modelos de lenguaje generativo para resolver el ejercicio de la prueba oral. La evaluación tendrá en cuenta tanto la resolución del ejercicio como las respuestas del alumno a las preguntas del profesor. Se valorará la capacidad para:
+Se permitirá el uso de modelos de lenguaje generativo para resolver el ejercicio de la prueba oral. La evaluación tendrá en cuenta tanto la resolución del ejercicio como las respuestas del alumnado a las preguntas del profesor. Se valorará la capacidad para:
 
 - Conocer las principales características del lenguaje Python
 - Utilizar correctamente la terminología de programación y de los entornos de desarrollo
@@ -60,7 +60,7 @@ Se permitirá el uso de modelos de lenguaje generativo para resolver el ejercici
 - Utilizar librerías para el tratamiento y gestión de datos, como `numpy` y `pandas`
 - Proponer diferentes soluciones a un problema
 
-<!-- Enlace a las horas disponibles para la prueba oral -->
+Los horarios disponibles para realizar la práctica se colgarán dentro del curso de Moodle cuando se acerque la fecha, todavía a definir.
 
 ## Referencias y materiales
 
@@ -82,6 +82,8 @@ Los siguientes materiales pueden servir como referencia:
 
 Además, se recomiendan los siguientes libros de texto (en orden de relevancia):
 
-- Zelle, J. (2010) [*Python Programming: An Introduction to Computer Science*, Second edition. Franklin, Beedle & Associates](https://archive.org/download/computer-science-collection-pdf/Python%20Programming%20-%20An%20Introduction%20to%20Computer%20Science%2C%203rd%20ed.%20-%20John%20M.%20Zelle%20%28Franklin%2C%20Beedle%20%26%20Associates%3B2017%3B9781590282755%3Beng%29.pdf)
+- Zelle, J. (2017) [*Python Programming: An Introduction to Computer Science*, Third edition. Franklin, Beedle & Associates](https://archive.org/download/computer-science-collection-pdf)
 - Lawhead, J. (2015) [*Learning Geospatial Analysis with Python: An effective guide to geographic information systems and remote sensing analysis using Python 3*, Third edition. Packt Publishing](https://www.packtpub.com/product/learning-geospatial-analysis-with-python/)
 - McKinney, W. (2012) [*Python for Data Analysis: Data wrangling with Pandas, NumPy and iPython*, First edition. O´Reilly Media](http://www.amazon.com/Python-Data-Analysis-Wrangling-IPython/dp/1449319793)
+
+Python también puede utilizarse para automatizar tareas del día a día: [Automating the boring stuff with Python - Al Sweigart](https://automatetheboringstuff.com/).

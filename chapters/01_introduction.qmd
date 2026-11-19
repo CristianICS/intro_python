@@ -1,6 +1,6 @@
 # Introducción {#sec-introduction}
 
-Python es uno de los lenguajes de programación más populares en todo el mundo[^1][^2]. SIGs como QGIS y ArcGIS Pro lo utilizan, además de una [enorme comunidad de usuarios que realiza operaciones espaciales mediante código Python](https://github.com/acgeospatial/awesome-earthobservation-code).
+Python es uno de los lenguajes de programación más populares en todo el mundo[^1][^2]. SIG como QGIS y ArcGIS Pro lo utilizan, además de una [enorme comunidad de usuarios que realiza operaciones espaciales mediante código Python](https://github.com/acgeospatial/awesome-earthobservation-code).
 
 ¿Por qué?
 
@@ -11,7 +11,7 @@ Python es uno de los lenguajes de programación más populares en todo el mundo[
 > Las ventajas completas de Python están recogidas en el capítulo 1 del [tutorial oficial de Python](https://docs.python.org/3/tutorial/appetite.html).
 
 [^1]: [TIOBE Index](https://www.tiobe.com/tiobe-index/)
-[^2]: [Encuesta de StackOverflow de 2026](https://survey.stackoverflow.co/2026/technology/data/languages)
+[^2]: [Encuesta de Stack Overflow de 2026](https://survey.stackoverflow.co/2026/technology/data/languages)
 
 Durante este curso se usará para realizar operaciones espaciales fuera de los SIG. Pero, ¿qué ventajas tiene este flujo de trabajo con respecto a los SIG tradicionales?
 
@@ -52,20 +52,6 @@ Python, al igual que R, es un lenguaje de programación **multiplataforma**. Est
 Para ejecutar las instrucciones escritas en Python se necesita un **intérprete**, un programa encargado de procesarlas y ejecutarlas. Existen distintas implementaciones de Python, es decir, programas que permiten ejecutar código escrito en este lenguaje. La más utilizada es **CPython**, que se empleará en este curso.
 
 Por tanto, antes de ejecutar código Python, es necesario disponer de una instalación que incluya un intérprete compatible.
-
-## Detalles prácticos
-
-Antes de comenzar a programar en Python, conviene recordar algunos conceptos básicos introducidos en el bloque de R.
-
-| Concepto | Definición |
-|---|---|
-| Código o *script* | Conjunto de instrucciones escritas en un lenguaje de programación para realizar determinadas tareas. |
-| Intérprete | Programa que permite ejecutar código escrito en un lenguaje de programación. |
-| Multiplataforma | Característica que permite utilizar un programa en distintos sistemas operativos, como Windows, macOS o Linux. |
-
-Python, al igual que R, es un lenguaje de programación **multiplataforma**. Esto significa que un mismo programa puede ejecutarse en diferentes sistemas operativos, generalmente sin necesidad de modificar su código.
-
-Para ejecutar las instrucciones escritas en Python se necesita un **intérprete**, un programa encargado de procesarlas y ejecutarlas. Existen diferentes implementaciones de Python, pero la más utilizada es **CPython**, que se empleará en este curso.
 
 ### ¿Cómo se ejecuta el código de Python?
 
