@@ -27,6 +27,10 @@ Los siguientes cuadernos introducen los conceptos generales del lenguaje Python.
 - [05_loops_inputs.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/05_loops_inputs.ipynb): bucles `for` y `while`. Función `range()`, variables acumuladoras, asignación aumentada (`+=`), desempaquetado de tuplas, funciones `enumerate()` y `zip()`, comprensión de listas y bucles infinitos.
 - [06_dictionaries.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/06_dictionaries.ipynb): diccionarios. Pares clave-valor, consulta segura con `.get()`, adición, modificación y eliminación de pares, recorrido de claves y valores, y estructuras anidadas como las de un archivo GeoJSON.
 - [07_functions.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/07_functions.ipynb): definición y llamada de funciones. Parámetros y argumentos, *docstrings*, devolución de valores con `return` y variables locales.
+- [08_import_open.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/08_import_open.ipynb): módulos y lectura de archivos. Formas de importar (`import`, `from ... import` y alias), estilo de las importaciones, rutas de archivos con `pathlib` (rutas absolutas y relativas, construcción, partes de una ruta y listado de carpetas), lectura y escritura de archivos de texto y CSV con `open()` y la instrucción `with`, e interpretación de los errores `ModuleNotFoundError` y `FileNotFoundError`.
+- [09_classes_oop.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/09_classes_oop.ipynb): clases y programación orientada a objetos. Terminología básica (clase, objeto, atributo y método), método `__init__()`, métodos con parámetros y valores devueltos, herencia y creación de módulos propios. Incluye un apartado opcional sobre el orden de resolución de métodos (MRO).
+- [10_data_structures.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/10_data_structures.ipynb): estructuras de datos aplicadas a datos geográficos. Elección de la estructura adecuada, capas como listas de diccionarios, extensión espacial (*bounding box*), mutabilidad y referencias, velocidad de búsqueda en listas y conjuntos, y lectura y escritura de archivos CSV y GeoJSON con los módulos `csv` y `json`.
+- [11_exceptions.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/11_exceptions.ipynb): excepciones. Excepciones frecuentes, sentencias `try/except`, `try/finally`, `raise` y `assert`, gestores de contexto (`with/as`) y excepciones definidas por el usuario. Incluye un apartado avanzado sobre el funcionamiento de los gestores de contexto.
 
 Cada cuaderno incluye ejercicios de refuerzo y ejemplos con errores intencionados, que se ejecutan para aprender a interpretar los mensajes de error de Python.
 
@@ -35,4 +39,5 @@ Cada cuaderno incluye ejercicios de refuerzo y ejemplos con errores intencionado
 
 El curso de Python está basado en Python 3.x; algunas operaciones como los *f-strings* no están disponibles en las versiones de Python 2.x, por lo que es recomendable asegurarse de que la versión de Python con la que se está trabajando es la correcta. 
 
+Dentro del entorno donde se ha instalado Python, ejecutar `python --version`.
 :::

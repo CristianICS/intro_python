@@ -19,7 +19,7 @@ Cada elemento cumple una función:
 - `python`: descarga del intérprete de Python.
 - `jupyterlab`: paquete con la aplicación para trabajar con cuadernos Jupyter.
 - `ipykernel`: componente que permite ejecutar Python desde los cuadernos.
-- `git`: herramienta que permite el control de versiones y trabajar con repositorios
+- `git`: herramienta que permite el control de versiones y trabajar con repositorios.
 - `-y`: acepta la instalación sin solicitar confirmación.
 
 Conda busca una combinación compatible de los paquetes y sus **dependencias**, es decir, los otros paquetes necesarios para que funcionen. Para ello, utiliza la información de los paquetes generados a partir de las recetas descritas en la @sec-recipes. Este proceso se denomina **resolución del entorno**: se seleccionan versiones que puedan funcionar juntas, aunque no sean las más recientes de cada paquete.
@@ -125,11 +125,13 @@ Se abre PowerShell y se activa el entorno:
 conda activate hello_world
 ```
 
-A continuación, se accede a la carpeta en la que se guardarán los materiales, en este ejemplo la unidad `D:`. Si el ordenador no dispone de ella, puede utilizarse el directorio personal (`cd $env:USERPROFILE`).
+A continuación, se accede a la carpeta en la que se guardarán los materiales, en este ejemplo la unidad `D:`. El comando `cd` (*change directory*) cambia la carpeta en la que trabaja la terminal:
 
 ```powershell
 cd D:\
 ```
+
+Si el ordenador no dispone de la unidad `D:`, puede utilizarse el directorio personal (`cd $env:USERPROFILE`). En ese caso, la ruta `D:\intro_python` debe sustituirse en los comandos siguientes por `$env:USERPROFILE\intro_python`.
 
 Por último, se descarga el repositorio:
 
@@ -137,17 +139,21 @@ Por último, se descarga el repositorio:
 git clone https://github.com/CristianICS/intro_python.git
 ```
 
-Esta operación se denomina **clonar** y solo debe realizarse una vez. Crea la carpeta `D:\intro_python`, que contiene todos los materiales del curso. Dentro de ella, la carpeta `notebooks` incluye los cuadernos de Jupyter con los que se desarrolla esta sección.
+Cada elemento cumple una función:
 
-::: {.callout-important}
+- `git`: herramienta que ejecuta el comando.
+- `clone`: operación que descarga una copia del repositorio.
+- `https://github.com/CristianICS/intro_python.git`: dirección del repositorio en GitHub.
 
-Para tomar apuntes o resolver los ejercicios, crear la carpeta `apuntes` dentro de `D:\intro_python` y trabajar sobre copias de los cuadernos guardadas en ella. Así, la actualización de los materiales no entra en conflicto con el trabajo propio.
+Esta operación se denomina **clonar**. Crea la carpeta `D:\intro_python`, que contiene todos los materiales del curso. Para comprobarlo, puede mostrarse su contenido con `dir intro_python`; deben aparecer, entre otras, las carpetas `notebooks` y `data`.
 
-:::
+La clonación solo debe realizarse una vez. Si se repite en la misma ubicación, aparece el error `fatal: destination path 'intro_python' already exists`.
 
 ### Actualizar los materiales
 
-El curso se amplía a lo largo del cuatrimestre. Para descargar los nuevos contenidos, se accede a la carpeta del curso y se ejecuta `git pull`:
+El curso se amplía a lo largo de las sesiones. Para descargar los nuevos contenidos, existen dos opciones. La primera consiste en acceder al curso en Moodle, descargar los nuevos contenidos e incluirlos en la ubicación especificada dentro de la carpeta del curso. Se recomienda elegir uno de los dos métodos y utilizarlo durante todo el curso, ya que combinarlos puede provocar errores al actualizar.
+
+Existe una segunda opción utilizando `git`, más avanzada y que se recomienda solo a quienes quieran profundizar en este sistema de gestión de repositorios. Si se han modificado archivos del curso, esta opción requiere descartar esos cambios, **por lo que pueden perderse los apuntes tomados sobre ellos**. Dentro de la carpeta del curso, se ejecuta `git pull`:
 
 ```powershell
 conda activate hello_world
@@ -157,23 +163,63 @@ git pull
 
 Si no hay novedades, aparece el mensaje `Already up to date.`; en caso contrario, se muestra la lista de archivos añadidos o modificados.
 
-#### Si la actualización falla {.unnumbered}
-
-Si se ha modificado algún archivo descargado, `git pull` se detiene con un mensaje similar a:
+Si se ha modificado algún archivo y este aparece con cambios en el repositorio, `git pull` se detiene con un mensaje similar a:
 
 ```text
 error: Your local changes to the following files would be overwritten by merge:
         notebooks/02_variables.ipynb
 ```
 
-El comando `git status` muestra los archivos modificados. Para conservar los cambios, se copian esos archivos a la carpeta `apuntes`. Después, se recuperan las versiones originales y se repite la actualización:
+El comando `git status` muestra los archivos modificados. Para conservar los cambios, pueden copiarse estos archivos a una nueva carpeta o modificar su nombre añadiendo `_v0` al final: `02_variables_v0.ipynb`. Después, se recuperan las versiones originales y se repite la actualización:
 
 ```powershell
 git restore .
 git pull
 ```
 
-`git restore .` descarta los cambios realizados en los archivos del repositorio. No afecta a los archivos nuevos, como los guardados en `apuntes`.
+`git restore .` descarta los cambios realizados en los archivos del repositorio. No afecta a los archivos nuevos, como las copias creadas en el paso anterior.
+
+Si se han añadido a la carpeta archivos descargados desde Moodle, `git pull` también puede detenerse con un mensaje similar a:
+
+```text
+error: The following untracked working tree files would be overwritten by merge:
+        notebooks/08_loops.ipynb
+```
+
+En este caso, se cambia el nombre de esos archivos de la misma forma (`08_loops_v0.ipynb`) y se repite `git pull`.
+
+#### Recuperar los archivos originales {#sec-git-restore}
+
+Con `git` también pueden descartarse los cambios realizados sobre los materiales para recuperar la versión original descargada. Resulta útil, por ejemplo, para repetir un ejercicio desde el principio o para dejar la carpeta igual que el repositorio antes de actualizarla.
+
+Antes de descartar nada, se consulta qué archivos se han modificado:
+
+```powershell
+cd D:\intro_python
+git status
+```
+
+Los archivos modificados aparecen bajo el texto `Changes not staged for commit`, precedidos de `modified:`. Los archivos nuevos, que no forman parte del repositorio, aparecen bajo `Untracked files`.
+
+Para recuperar un único archivo, se indica su ruta dentro de la carpeta del curso:
+
+```powershell
+git restore notebooks/02_variables.ipynb
+```
+
+Para recuperar todos los archivos a la vez, se sustituye la ruta por un punto (`.`), que representa la carpeta actual y todo su contenido:
+
+```powershell
+git restore .
+```
+
+::: {.callout-warning}
+
+Los cambios descartados con `git restore` no pueden recuperarse. Si se desea conservar los apuntes, deben copiarse o renombrarse antes los archivos, como se ha explicado en esta sección.
+
+:::
+
+`git restore` solo afecta a los archivos del repositorio: también recupera los que se hayan borrado por error, pero no modifica ni elimina los archivos nuevos, como las copias renombradas con `_v0`.
 
 ## Iniciar JupyterLab {#sec-init-jupyter}
 
