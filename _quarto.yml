@@ -32,7 +32,7 @@ format:
   html:
     theme: default
     toc-expand: 3
-  # pdf:
-  #   template: eisvogel.latex
-  #   linkcolor: cyan
-  #   urlcolor: cyan
+  pdf:
+    template: eisvogel.latex
+    linkcolor: cyan
+    urlcolor: cyan
