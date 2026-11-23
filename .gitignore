@@ -1,4 +1,3 @@
-TASKS.md
 _book/
 .quarto/
 .ipynb_checkpoints/
@@ -6,7 +5,11 @@ __pycache__/
 *.pyc
 /images/presentation
 /notebooks/solved_exercises
+/notebooks/*.py
 /presentation
+output/
 /.quarto/
 **/*.quarto_ipynb
 99_*
+AGENTS.md
+TASKS.md
