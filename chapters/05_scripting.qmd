@@ -194,7 +194,7 @@ El intérprete se selecciona desde el menú de comandos. Se pulsa `Ctrl + Shift 
 
 Se comprueba que la selección es correcta en la barra de estado, en la esquina inferior derecha, donde debe aparecer el nombre y la versión del entorno elegido (@fig-interpreter).
 
-![Localización del nombre del entorno elegido que contiene el intérprete de Python a utilizar.](../images/book/python_interpreter.svg){#fig-interpreter}
+![Localización del nombre del entorno elegido que contiene el intérprete de Python a utilizar.](../images/book/python_interpreter.png){#fig-interpreter}
 
 Si el entorno no aparece en la lista, se abre una terminal nueva o se busca y ejecuta **Developer: Reload Window** dentro del panel de comandos (`Ctrl + Shift + P`) y se vuelve a intentar. Si sigue sin aparecer, se selecciona **Enter interpreter path...** desde el panel de comandos y se localiza manualmente el ejecutable de Python del entorno.
 
