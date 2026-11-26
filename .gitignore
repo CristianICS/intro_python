@@ -11,5 +11,6 @@ output/
 /.quarto/
 **/*.quarto_ipynb
 99_*
+*.gdb
 AGENTS.md
 TASKS.md
