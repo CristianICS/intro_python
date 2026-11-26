@@ -1,0 +1,32 @@
+name: python_gis
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+
+  - numpy
+  - scipy
+  - pandas
+  - scikit-learn
+
+  - geopandas
+  - shapely
+  - pyproj
+  - pyogrio
+  - fiona
+  - mapclassify
+
+  - rasterio
+  - xarray
+  - rioxarray
+
+  - matplotlib
+  - seaborn
+  - contextily
+  - folium
+
+  - jupyterlab
+  - ipykernel
+
+  - flake8
+  - autopep8
