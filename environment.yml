@@ -16,9 +16,13 @@ dependencies:
   - fiona
   - mapclassify
 
+  - gdal
   - rasterio
   - xarray
   - rioxarray
+
+  - py6s
+  - earthengine-api
 
   - matplotlib
   - seaborn
