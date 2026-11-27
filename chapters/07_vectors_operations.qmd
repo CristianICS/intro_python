@@ -1,4 +1,4 @@
-# Datos vectoriales: *Dissolve*
+# Operaciones con datos vectoriales
 
 En el @sec-vectors se ha introducido el módulo de `geopandas`. Se aprendió a cargar una capa y a utilizar varios métodos y atributos de los objetos `GeoDataFrame` para explorar los archivos vectoriales.
 
