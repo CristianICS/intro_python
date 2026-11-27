@@ -196,7 +196,7 @@ Se comprueba que la selección es correcta en la barra de estado, en la esquina 
 
 ![Localización del nombre del entorno elegido que contiene el intérprete de Python a utilizar.](../images/book/python_interpreter.png){#fig-interpreter}
 
-Si el entorno no aparece en la lista, se abre una terminal nueva o se busca y ejecuta **Developer: Reload Window** dentro del panel de comandos (`Ctrl + Shift + P`) y se vuelve a intentar. Si sigue sin aparecer, se selecciona **Enter interpreter path...** desde el panel de comandos y se localiza manualmente el ejecutable de Python del entorno.
+Si el entorno no aparece en la lista, se abre una terminal nueva o se busca y ejecuta **Developer: Reload Window** dentro del panel de comandos (`Ctrl + Shift + P`) y se vuelve a intentar. Si sigue sin aparecer, se selecciona **Enter interpreter path...** desde el panel **Python: Select Interpreter** y se localiza manualmente el ejecutable de Python del entorno. Para conocer su localización, incluir en la consola la línea `conda env list`. A la derecha del nombre del entorno aparecerá su localización.
 
 ## Comprobar que todo funciona
 
@@ -227,6 +227,53 @@ Al guardar el archivo con `Ctrl + S`, la línea `x=1+2` se convierte en `x = 1+2
 - en la terminal integrada (`Ctrl + ñ`) se escribe `python hola.py`.
 
 Las dos opciones realizan la misma operación: ejecutan el código dentro de `hola.py` utilizando el intérprete de Python que contiene el entorno `python_gis`.
+
+## Problemas y errores
+
+Durante la ejecución del código, pueden ocurrir algunos errores relacionados con la llamada al intérprete de Python. Aunque se haya seleccionado el entorno `python_gis` como intérprete, al pulsar sobre el botón *▶ (Run Python File)* el programa puede fallar al importar bibliotecas espaciales como `geopandas`, `rasterio` o `pyproj`.
+
+### Síntoma 
+
+Al ejecutar el programa, la terminal muestra mensajes de error que indican que no se localizan las bibliotecas GDAL o PROJ. Algunos ejemplos habituales son:
+
+```text
+ImportError: DLL load failed while importing _gdal
+```
+
+```text
+PROJ: proj_create_from_database: Cannot find proj.db
+```
+
+### Causa
+
+GDAL y PROJ no son bibliotecas escritas en Python, sino componentes compilados que el entorno instala en sus propias carpetas. Para que Python pueda encontrarlos, el entorno debe estar **activado**. La activación (`conda activate`) no se limita a elegir el intérprete: también indica al sistema en qué carpetas se encuentran estos componentes y sus archivos de datos (por ejemplo, `proj.db`).
+
+El botón *▶ (Run Python File)* llama directamente al ejecutable de Python del entorno. Si por algún motivo la activación no se completa antes de la ejecución, el intérprete correcto se ejecuta, pero sin la información necesaria para localizar GDAL y PROJ. El resultado son los errores anteriores, aunque el entorno y las bibliotecas estén correctamente instalados.
+
+### Solución
+
+Se activa el entorno manualmente en la terminal y se ejecuta el programa desde ella:
+
+1. Se abre una terminal nueva con `Ctrl + ñ`.
+2. Se activa el entorno:
+
+    ```powershell
+    conda activate python_gis
+    ```
+
+3. Se comprueba que la línea de la terminal comienza con `(python_gis)`.
+4. Se comprueba que la ruta de la terminal es la de la carpeta que contiene el programa. De lo contrario, se cambia con `cd`, por ejemplo `cd D:\intro_python`.
+5. Se ejecuta el programa escribiendo `python` seguido del nombre del archivo:
+
+    ```powershell
+    python hola.py
+    ```
+
+::: {.callout-tip}
+
+Mientras la terminal permanezca abierta, el entorno sigue activado. Basta con repetir el paso 5 cada vez que se quiera ejecutar de nuevo el programa. Si se cierra la terminal, deben repetirse todos los pasos.
+
+:::
 
 ## Atajos de teclado útiles
 
