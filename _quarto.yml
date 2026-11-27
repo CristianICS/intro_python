@@ -26,6 +26,7 @@ book:
     - chapters/04_python_basics.qmd
     - chapters/05_scripting.qmd
     - chapters/06_vectors.qmd
+    - chapters/07_vectors_operations.qmd
   downloads: [pdf]
 
 bibliography: references.bib
