@@ -78,7 +78,7 @@ Para consultar otros comandos de `conda`, se puede ejecutar `conda --help`; para
 
 Todos ellos pueden consultarse también en la [guía de comandos de Conda](https://docs.conda.io/projects/conda/en/latest/commands/index.html).
 
-## Entorno integrado de desarrollo
+## Entorno integrado de desarrollo {#sec-ide}
 
 En la introducción de esta asignatura se vio lo que era un IDE (*Integrated Development Environment*), un programa capaz de:
 
@@ -92,7 +92,7 @@ Son necesarios a la hora de programar y escribir código, ya que agilizan la det
 Python es un lenguaje ampliamente utilizado, por lo que la mayoría de los IDE lo integran. Las más utilizadas por los programadores son:
 
 - [PyCharm](https://www.jetbrains.com/pycharm/): Aplicación con funcionalidades avanzadas integradas desde el inicio para trabajar con Python, herramientas basadas en inteligencia artificial y agentes. Es gratuita, pero cuenta con versión de pago que aumenta las funcionalidades.
-- [Visual Studio Code](https://code.visualstudio.com/) (y su versión libre [VS Codium](https://vscodium.com/)): Ligera y compatible con múltiples lenguajes de programación. Es totalmente libre, aunque VS Code es desarrollada por Microsoft; VS Codium es una versión compilada a partir de su código abierto, sin telemetría. Es una de las más utilizadas.
+- [Visual Studio Code](https://code.visualstudio.com/) (y su versión libre [VSCodium](https://vscodium.com/)): Ligera y compatible con múltiples lenguajes de programación. Es totalmente libre, aunque VS Code es desarrollada por Microsoft; VSCodium es una versión compilada a partir de su código abierto, sin telemetría. Es una de las más utilizadas.
 - [Spyder](https://www.spyder-ide.org/): Similar a RStudio, pero orientada a Python. Está enfocada a la ciencia de datos.
 
 ### Jupyter y JupyterLab
