@@ -13,6 +13,7 @@ output/
 /.quarto/
 **/*.quarto_ipynb
 99_*
+*.gdb
 AGENTS.md
 TASKS.md
 /python/geopandas_merge.py

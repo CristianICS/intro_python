@@ -24,6 +24,9 @@ book:
     - chapters/02_installation.qmd
     - chapters/03_first_steps.qmd
     - chapters/04_python_basics.qmd
+    - chapters/05_scripting.qmd
+    - chapters/06_vectors.qmd
+    - chapters/07_vectors_operations.qmd
   downloads: [pdf]
 
 bibliography: references.bib

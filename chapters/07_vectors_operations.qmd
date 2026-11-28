@@ -1,0 +1,369 @@
+# Operaciones con datos vectoriales
+
+En el @sec-vectors se ha introducido el módulo de `geopandas`. Se aprendió a cargar una capa y a utilizar varios métodos y atributos de los objetos `GeoDataFrame` para explorar los archivos vectoriales.
+
+La mayoría de los métodos de GeoPandas que se vieron en la sección anterior (como `GeoDataFrame.head()`) están disponibles también en [Pandas](https://pandas.pydata.org/), una librería que permite trabajar con tablas (archivos csv y excel). En esta sección se van a utilizar métodos propios de GeoPandas para realizar diferentes operaciones espaciales.
+
+## Modo de trabajo
+
+Cambia con respecto a la sección anterior. Ahora se proporcionan los códigos `.py` que realizarán las funciones, pero con llamadas a la función `breakpoint()`. Al ejecutar el programa la consola muestra el siguiente texto:
+
+```text
+> c:\...\geopandas_dissolve.py(18)<module>()
+-> breakpoint()
+(Pdb) 
+```
+
+Este es el modo [Pdb](https://docs.python.org/3/library/pdb.html), muy útil para depurar código de Python. Se inicia con la función de la línea 18, `breakpoint()`. Una vez que llega aquí, se termina la ejecución del programa y comienza un modo interactivo que permite trabajar con las variables creadas hasta que se inicia este modo.
+
+El modo Pdb puede terminarse escribiendo `q` y pulsando enter. También acaba la ejecución del programa, es decir, que ninguna de las líneas que siguen a `breakpoint()` es ejecutada.
+
+Cada uno de los programas de esta sección cuenta con múltiples llamadas a la función `breakpoint()`, que sirven para iniciar una explicación y comprobar varios aspectos del código hasta ese momento.
+
+En algunos casos, en lugar de utilizar `breakpoint()` se llama a la función `sys.exit()`, que termina directamente la ejecución del programa sin entrar en el modo depuración. Pertenece al módulo `sys`, incluido por defecto en Python, por lo que los programas de esta sección lo importan al principio con `import sys`. Son estos casos en los que no se requiere comprobar ninguna variable, tan solo la salida del código.
+
+Una vez acabada una explicación, se eliminan (`Shift + Supr`) o se comentan (`Ctrl + Ç`) estas funciones antes de seguir adelante.
+
+## Eliminar una capa {#sec-remove-layer}
+
+Si se ha completado el ejercicio anterior, se habrá incluido una nueva capa dentro de la base de datos. GeoPandas no incluye un método o función capaz de eliminarla. Por ello, se ha creado una función propia llamada `remove()` que permite quitarla de la base de datos. Esta función se guarda en un archivo `.py` (`remove_layer.py`) en la misma carpeta `python` en la que se ha creado el ejercicio anterior. De esta forma, se podrá incluir la función en el programa creado en la sesión anterior.
+
+Al incluir como segunda línea del archivo la siguiente, justo debajo de la línea que importa `geopandas`, se cargará la función dentro del programa y podrá utilizarse:
+
+```python
+from remove_layer import remove
+```
+
+Esto solo puede hacerse porque ambos archivos están en la misma carpeta. Por defecto, Python busca las librerías importadas dentro del entorno actual y, si no las encuentra, las busca en el directorio del archivo. Esta es una manera sencilla que crear librerías propias con funciones personalizadas.
+
+Después, se puede incluir la función al final del código para eliminar la capa creada.
+
+```python
+remove(parque_agua_fp, new_layer_name)
+updated_layers = gpd.list_layers(parque_agua_fp)["name"].values
+print(f"¿Capa eliminada? {new_layer_name not in updated_layers}")
+```
+
+Estas líneas realizan tres operaciones:
+
+1. `remove()` elimina la capa `new_layer_name` de la base de datos guardada en `parque_agua_fp`.
+2. `gpd.list_layers()` vuelve a leer las capas de la base de datos. No sirve la variable `available_layers`, ya que se creó **antes** de eliminar la capa y todavía la incluye. Igual que en el @sec-vectors, se selecciona la columna `name` y se accede a sus valores con `.values`, para que `in` busque entre los nombres de las capas y no en el índice.
+3. `print()` muestra el resultado de la condición `new_layer_name not in updated_layers`: `True` si la capa ya no está en la base de datos y `False` si sigue en ella.
+
+Esta función trabaja directamente con las funciones espaciales de GDAL, que si que cuentan con funciones para eliminar tablas de bases de datos. Con esto se ha visto una de las ventajas de Python, permitir la creación de herramientas propias para solucionar problemas concretos.
+
+## Descargar archivos {#sec-download-data}
+
+En los ejercicios de esta sección se trabaja con los datos de [Natural Earth](https://www.naturalearthdata.com/), un dataset de acceso libre que cuenta con datos vectoriales y ráster a varias escalas.
+
+Se ha creado un módulo de Python, incluido en la carpeta `python` del curso, llamado `geopandas_download_data.py`, que contiene las funciones necesarias para descargar los datos a escala 1:10 millones (la resolución espacial de más detalle).
+
+Se abre el archivo `geopandas_download_data.py` en VSCodium. En las primeras líneas, se puede ver lo siguiente:
+
+- Un *docstring* o comentario entre tres comillas dobles (`"""`). Permite documentar un módulo (y también una función). Python los muestra en la ayuda de las funciones. Ver [07_functions.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/07_functions.ipynb).
+- La importación de una librería llamada `pathlib`, de la que se carga la clase `Path`. Ver [08_import_open.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/08_import_open.ipynb), en concreto la sección *Rutas de archivos con pathlib*.
+- Dos variables con nombres **en mayúsculas**. Se llaman, *constantes*, y aunque se comportan como una variable normal, en Python sirven para indicar al lector del código que estas variables **no se modifican** durante todo el código. Al abrir el panel *Explorer* en VSCodium (`Ctrl + Shift + E`), abajo puede verse una sección llamada *Outline*. Contiene todos los elementos creados en el programa seleccionado (normalmente donde se encuentra el cursor), y permite diferenciar entre variables y constantes. Se puede hacer la prueba creando una variable debajo de `SPAIN_BBOX`, por ejemplo `prueba = "esto es una prueba"`. El símbolo utilizado para diferenciarlas dentro del panel *Outline* es diferente. Se elimina la variable de prueba antes de seguir.
+
+
+::: {.callout-note}
+
+Se recomienda incluir las constantes al inicio del código, ya que sirven como opciones generales que permiten modificar el comportamiento del programa de forma eficaz. Por ejemplo, para cambiar el sistema de coordenadas en el que se exportan las capas, basta con modificar `OUT_CRS` al principio del código.
+
+:::
+
+El resto del código es una serie de funciones que permiten descargar los datos siguiendo el siguiente comportamiento:
+
+1. Comprueba que la capa no haya sido descargada previamente
+2. Si es así, guarda y devuelve la capa en local
+3. Por el contrario, la descarga, la guarda y devuelve la capa en local.
+
+En el panel de *Outline* se puede comprobar que hay funciones que empiezan con un guión bajo (`_`). Esta es otra convención que marca las funciones internas, o lo que es lo mismo, que no se exportan nunca del módulo, en este caso de `geopandas_download_data.py`. Las funciones que se van a utilizar durante esta sección para descargar los datos son las que no tienen un guión bajo delante. El resto son funciones que permiten realizar procesos intermedios.
+
+Las funciones permiten filtrar los datos y descargar solamente los vectores que pertenecen a España, ya sea con un atributo o con su área (*bounding box* o BBOX).
+
+## Disolución
+
+En esta sección se utilizan la capa de provincias de Natural Earth para unir o disolver los polígonos en función de su atributo "Comunidad Autónoma". Se utiliza el programa `geopandas_dissolve.py`, dentro de la carpeta `python`.
+
+Al abrirlo, vuelven a verse los mismos elementos que en el código de la sección anterior:
+
+- Un comentario *docstring* o de documentación, con información sobre el programa.
+- La importación de una serie de módulos. Tal y como se explica en el cuaderno [08_import_open.ipynb](https://github.com/CristianICS/intro_python/blob/main/notebooks/08_import_open.ipynb), se dividen en tres bloques mediante una línea en blanco:
+    1. Librerías internas de Python (vienen por defecto al instalarlo)
+    2. Librerías externas, paquetes instalados con conda.
+    3. Módulos propios, creados por el usuario.
+- Constantes, variables que no se modifican durante todo el programa.
+
+Además, aparece un nuevo elemento: `__file__`. Esta es una de las constantes que Python crea al iniciar la ejecución del programa, y que guarda su ruta o dirección en formato texto.
+
+### Guardar la ruta raíz (ROOT)
+
+Se ejecuta el programa `geopandas_dissolve.py`. Se inicia el modo de depuración o Pdb, y puede accederse a las constantes definidas entre las líneas 13 y 16.
+
+Se escribe la siguiente línea en la consola, a continuación del texto `(Pdb)`:
+
+```python
+ROOT
+```
+
+Aparecerá la ruta al programa que se está ejecutando, ya que la variable `ROOT` guarda el texto del elemento `__file__`. El texto aparece dentro de unos paréntesis que comienzan con el texto `WindowsPath`. La clase `Path` detecta automáticamente que se trata de una ruta de Windows y la convierte a un formato entendible por el programa (los `\` se han convertido a `/`).
+
+A continuación, se escribe la siguiente línea al lado de la nueva línea vacía `(Pdb)`:
+
+```python
+type(ROOT)
+```
+
+Este objeto pertenece a la clase `WindowsPath` del módulo `pathlib`, que contiene métodos útiles para trabajar con rutas en Python. Por ejemplo, el atributo `parent` permite obtener la ruta a la carpeta que contiene el archivo:
+
+```python
+ROOT.parent
+```
+
+La línea anterior tendría que devolver la ruta a la carpeta donde se guarda el programa.
+
+`__file__` solo se crea cuando se ejecutan archivos `.py`, pero no puede utilizarse dentro de un cuaderno de Jupyter. Existe una función de `Path` que puede utilizarse en su lugar, que devuelve la dirección del directorio de trabajo:
+
+```python
+Path.cwd()
+```
+
+Las rutas no coinciden, y es que `Path.cwd()` (o el equivalente `getwd()` en R) devuelve el directorio de trabajo (ver @sec-vector-maps), es decir, la dirección de la terminal donde se está ejecutando el programa (o el cuaderno en JupyterLab). Hay que tener en cuenta este hecho antes de utilizar la función o podrían producirse resultados inesperados, como guardar un archivo en una dirección distinta a la esperada.
+
+::: {.callout-note}
+
+# Modificar las rutas
+
+Se cambian las constantes `DATA_DIR` y `OUT_DIR` para que apunten a las siguientes rutas utilizando el atributo `parent` de `Path`:
+
+- `DATA_DIR` = `.../<carpeta_curso>/data`
+- `OUT_DIR` = `.../<carpeta_curso>/python`
+
+Se recomienda probar las rutas dentro del modo Pdb antes de escribir el resultado final.
+:::
+
+### Cargar los datos
+
+Una vez modificadas las rutas, se elimina o se comenta la primera llamada a `breakpoint()` y se ejecuta de nuevo el programa. El modo Pdb se inicia ahora en la segunda llamada, justo después de dos nuevas instrucciones.
+
+La primera, `OUT_DIR.mkdir(exist_ok=True)`, crea la carpeta guardada en `OUT_DIR`. `mkdir()` (de *make directory*) es un método de los objetos `Path`. Al situar el cursor encima del método en VSCodium aparece una ventana con su documentación (@fig-mkdir-help).
+
+![Documentación del método `mkdir()` en VSCodium.](../images/book/mkdir_method_help.png){#fig-mkdir-help}
+
+La ventana muestra los parámetros del método junto a su valor por defecto. El parámetro `exist_ok` vale `False`, lo que significa que el método devuelve un error si la carpeta ya existe. Con `exist_ok=True`, el programa continúa sin errores en ese caso. Es lo que ocurre en este ejemplo, ya que `OUT_DIR` apunta a la carpeta `python`, que ya existe.
+
+La segunda instrucción, `load_provinces(DATA_DIR)`, utiliza una de las funciones del módulo `geopandas_download_data.py` (ver la @sec-download-data). Recibe la carpeta donde se guardan los datos y devuelve la capa de provincias de España. La primera vez que se ejecuta, la consola muestra el mensaje `Downloading 'provincias' (first run only)...` y se crea el archivo `provincias.gpkg` dentro de `DATA_DIR`. En las siguientes ejecuciones, la capa se lee directamente desde ese archivo, sin necesidad de conexión a internet.
+
+Se comprueba el tipo de objeto guardado en la variable `prov` escribiendo la siguiente línea en el modo Pdb:
+
+```python
+type(prov)
+```
+
+Se trata de un `GeoDataFrame`, el mismo tipo de objeto que se obtuvo al leer una capa con `gpd.read_file()` en el @sec-vectors. Pueden consultarse sus primeras filas y sus columnas con:
+
+```python
+prov.head()
+prov.columns
+```
+
+La capa de Natural Earth contiene decenas de columnas, por lo que la consola abrevia la tabla con puntos suspensivos (`...`), como se vio en la @sec-read-vectors.
+
+### Seleccionar columnas
+
+Se elimina la segunda llamada a `breakpoint()` y se ejecuta el programa. Antes de iniciar el modo Pdb, la consola muestra algunas propiedades de la capa descargada:
+
+- `prov.shape`: número de filas y de columnas de la tabla (ver @sec-filter-tables).
+- `prov.crs`: atributo con el sistema de coordenadas de referencia (CRS) de la capa. Los datos de Natural Earth se encuentran en `EPSG:4326` (WGS84), es decir, en coordenadas geográficas expresadas en grados.
+- `prov.geom_type.value_counts()`: `geom_type` devuelve el tipo de geometría de cada fila (`Polygon`, `MultiPolygon`...). El método `value_counts()` cuenta cuántas veces aparece cada valor (ver @sec-select-uso).
+
+Los caracteres `\t` que aparecen dentro de los textos de `print()` representan un tabulador, y sirven para sangrar las líneas en la consola.
+
+A continuación, se seleccionan y renombran las columnas necesarias para el ejercicio:
+
+```python
+esp = prov[["name", "region", "geometry"]].rename(
+    columns={"name": "provincia", "region": "ccaa"}
+)
+```
+
+Esta instrucción realiza dos operaciones:
+
+1. `prov[["name", "region", "geometry"]]` selecciona varias columnas. Los corchetes exteriores indican una selección, mientras que los interiores crean una lista con los nombres de las columnas. Al seleccionar una sola columna, por ejemplo `prov["name"]`, se obtiene una `Series` (como se vio en el @sec-vectors). Al seleccionar una lista de columnas, se obtiene una tabla.
+2. `.rename(columns={...})` cambia el nombre de las columnas. Recibe un **diccionario**, una estructura de Python que agrupa pares `clave: valor` entre llaves (`{}`). En este caso, la clave es el nombre actual y el valor, el nuevo nombre.
+
+Por último, la línea con `print()` muestra las comunidades autónomas de la capa. El método `unique()` devuelve los valores únicos de la columna `ccaa`, y el método `join()` de los textos los une en una sola línea separados por el texto indicado delante, en este caso `", "`.
+
+Se comprueba en el modo Pdb el resultado de la selección:
+
+```python
+esp.head()
+prov.shape
+esp.shape
+```
+
+La nueva tabla `esp` mantiene el mismo número de filas que `prov`, pero solo tres columnas. La tabla original `prov` no se modifica.
+
+Incluir la columna `geometry` en la selección es importante. Sin ella, el resultado deja de ser un `GeoDataFrame` y se convierte en una tabla sin información espacial (un `DataFrame` de Pandas), como ocurría con el método `filter()` en la @sec-filter-tables. Puede comprobarse con la siguiente línea:
+
+```python
+type(prov[["name", "region"]])
+```
+
+### Filtro espacial
+
+Se elimina la tercera llamada a `breakpoint()` y se ejecuta el programa. La siguiente instrucción aplica un filtro espacial a la capa:
+
+```python
+esp = esp.cx[-10:5, 35:44]
+```
+
+`cx` permite seleccionar las geometrías a partir de un rectángulo definido por sus coordenadas, con el formato `cx[xmin:xmax, ymin:ymax]`. Las coordenadas se expresan en las unidades del CRS de la capa, en este caso grados: longitudes entre -10 y 5 y latitudes entre 35 y 44. Este rectángulo incluye la Península y las Islas Baleares, pero no las Islas Canarias, situadas aproximadamente entre las longitudes -18 y -13 y las latitudes 27 y 29.
+
+Se conservan las geometrías que intersecan con el rectángulo, **completas y sin recortar**. El resultado es equivalente a una selección por localización en un SIG de escritorio. El nuevo resultado se guarda en la misma variable `esp`, sustituyendo a la tabla anterior.
+
+La siguiente línea, `esp.plot("ccaa")`, crea un mapa coloreado según la comunidad autónoma, aunque no lo muestra. Para visualizarlo, se escribe en el modo Pdb:
+
+```python
+plt.show()
+```
+
+`plt` es el nombre abreviado con el que se ha importado el módulo `matplotlib.pyplot` al inicio del programa (`import matplotlib.pyplot as plt`). Su función `show()` abre una ventana con el mapa. El programa queda en pausa hasta que se cierra esta ventana. Si se elimina el comentario de la línea `# plt.show()`, el mapa se mostrará en cada ejecución.
+
+Para confirmar que las Islas Canarias ya no forman parte de la capa, se consultan de nuevo los valores únicos de la columna `ccaa`:
+
+```python
+esp["ccaa"].unique()
+```
+
+### Calcular el área en grados
+
+Se elimina la cuarta llamada a `breakpoint()` y se ejecuta el programa. En este caso, el programa termina con `sys.exit()`, sin entrar en el modo Pdb.
+
+La línea `print(esp.area.head(1))` calcula el área de cada geometría con el atributo `area` y muestra la primera fila. La consola muestra un mensaje similar al siguiente:
+
+```text
+UserWarning: Geometry is in a geographic CRS. Results from 'area' are likely incorrect. Use 'GeoSeries.to_crs()' to re-project geometries to a projected CRS before this operation.
+```
+
+Se trata de una advertencia, no de un error (ver @sec-read-vectors): GeoPandas avisa de que el resultado no es fiable. Como la capa está en coordenadas geográficas, el área se calcula en grados cuadrados, una unidad que no tiene sentido para medir superficies. La solución que propone el mensaje es reproyectar la capa a un CRS proyectado.
+
+Una vez leído el mensaje, se comenta la línea `print(esp.area.head(1))` (`Ctrl + Ç`) para que no vuelva a aparecer.
+
+### Reproyectar
+
+Se elimina la primera llamada a `sys.exit()` y se ejecuta el programa. Las siguientes líneas reproyectan la capa y calculan el área de cada provincia en $km^2$:
+
+```python
+esp = esp.to_crs(OUT_CRS)
+esp["area_km2"] = esp.area / 1e6
+```
+
+- `to_crs()` reproyecta las geometrías al CRS indicado, en este caso el guardado en la constante `OUT_CRS`: `EPSG:25830` (ETRS89 / UTM zona 30N), el sistema oficial para la España peninsular. Sus unidades son metros.
+- `esp["area_km2"] = ...` crea una nueva columna llamada `area_km2`. Si la columna no existe, se crea; si existe, se sobrescribe. Es el equivalente a `esp$area_km2 <- ...` en R.
+- `esp.area` devuelve el área de cada geometría en metros cuadrados. Al dividir entre `1e6` (notación científica para 1 000 000), se obtiene el área en $km^2$. La operación se aplica a todas las filas a la vez, sin necesidad de recorrerlas una a una.
+
+::: {.callout-note}
+
+Las Islas Baleares se sitúan en la zona UTM 31. Al proyectarlas en la zona 30 se produce una pequeña deformación, aceptable para este ejercicio.
+
+:::
+
+Por último, el programa muestra las dos provincias de mayor superficie. El método `sort_values()` ordena la tabla según la columna indicada. Por defecto, el orden es ascendente (de menor a mayor). Con `ascending=False` se ordena de mayor a menor. El método `head(2)` muestra las dos primeras filas.
+
+El resultado sirve como **comprobación**: la provincia más extensa de España es Badajoz, con unos 21 700 $km^2$, seguida de Cáceres. Si los valores son muy diferentes, algo ha fallado en los pasos anteriores (por ejemplo, haber calculado el área antes de reproyectar). Los valores no coinciden exactamente con las cifras oficiales, ya que la escala 1:10 millones simplifica los límites de las provincias.
+
+### Disolver provincias
+
+Se elimina la segunda llamada a `sys.exit()` y se ejecuta el programa. La siguiente instrucción realiza la disolución:
+
+```python
+ccaa = esp.dissolve(
+    by="ccaa",
+    aggfunc={"area_km2": "sum", "provincia": "count"}
+)
+```
+
+El método `dissolve()` equivale a la herramienta *Disolver* de un SIG de escritorio: une las geometrías que comparten un mismo valor en una columna. Sus parámetros son:
+
+- `by`: columna que define los grupos. Todas las provincias con el mismo valor en `ccaa` se unen en un único polígono.
+- `aggfunc`: indica cómo se combinan los valores del resto de columnas. Recibe un diccionario donde la clave es el nombre de la columna y el valor, la operación a aplicar:
+    - `"sum"`: suma las áreas de las provincias de cada comunidad.
+    - `"count"`: cuenta el número de provincias de cada comunidad.
+
+El resultado se guarda en una nueva variable llamada `ccaa`. Hay que distinguir entre la variable `ccaa` (la nueva tabla) y el texto `"ccaa"` (el nombre de una columna).
+
+Se comprueba el resultado en el modo Pdb:
+
+```python
+ccaa.head()
+ccaa.shape
+```
+
+La tabla tiene ahora una fila por comunidad autónoma. Los nombres de las comunidades aparecen a la izquierda de la tabla, en una posición distinta a la del resto de columnas. Esto se debe a que `dissolve()` convierte la columna `by` en el **índice** de la tabla (ver @sec-read-vectors). Hasta ahora, el índice eran números consecutivos (0, 1, 2...). Puede consultarse con:
+
+```python
+ccaa.index
+```
+
+### Renombrar columnas y restablecer el índice
+
+Se elimina la quinta llamada a `breakpoint()` y se ejecuta el programa. La siguiente instrucción encadena dos métodos:
+
+```python
+ccaa = ccaa.rename(columns={"provincia": "n_provincias"}).reset_index()
+```
+
+1. `rename()` cambia el nombre de la columna `provincia` por `n_provincias`, ya que ahora contiene el número de provincias de cada comunidad, no su nombre.
+2. `reset_index()` convierte el índice de nuevo en una columna normal (`ccaa`) y crea un índice numérico nuevo. De esta forma, la columna `ccaa` puede utilizarse como cualquier otra, por ejemplo, para crear etiquetas o filtrar la tabla.
+
+Se compara la tabla con la del paso anterior en el modo Pdb:
+
+```python
+ccaa.head()
+ccaa.columns
+```
+
+### Comprobar el resultado
+
+Se elimina la sexta llamada a `breakpoint()` y se ejecuta el programa. Igual que con las provincias, el programa muestra las dos comunidades autónomas de mayor superficie y termina con `sys.exit()`.
+
+El resultado esperado es Castilla y León (unos 94 000 $km^2$ y 9 provincias), seguida de Andalucía (unos 87 500 $km^2$ y 8 provincias). Si las cifras coinciden aproximadamente, la disolución se ha realizado correctamente.
+
+### Mapa clasificado (extra)
+
+Se elimina la última llamada a `sys.exit()` y se ejecuta el programa. A partir de aquí no hay más interrupciones: el programa crea un mapa, lo guarda y exporta las capas.
+
+El mapa se construye en varias capas, de forma similar a la composición de un mapa en un SIG de escritorio:
+
+- `fig, ax = plt.subplots(figsize=(10, 8))` crea una figura vacía (`fig`) y un área de dibujo (`ax`) de 10 x 8 pulgadas. La función devuelve dos objetos, que se guardan a la vez en dos variables separadas por una coma.
+- `ccaa.plot(...)` representa las comunidades autónomas según su área (`column="area_km2"`), con una simbología por intervalos:
+    - `scheme="Quantiles"` y `k=4`: clasifica los valores en cuatro intervalos por cuantiles. Requiere la librería `mapclassify`, incluida en el entorno del curso.
+    - `cmap="BuGn"`: rampa de color de azul a verde (ver @sec-vector-maps).
+    - `legend=True` y `legend_kwds`: muestran la leyenda y definen su título, su posición y el formato de los números (`"{:.1f}"`, un decimal).
+    - `ax=ax`: dibuja el mapa sobre el área de dibujo creada anteriormente.
+- `esp.boundary.plot(...)` y `ccaa.boundary.plot(...)` dibujan encima los límites de las provincias (blancos y finos) y de las comunidades (negros y más gruesos). El atributo `boundary` convierte los polígonos en líneas.
+
+A continuación, un bucle `for` recorre cada fila de la tabla `ccaa` con el método `itertuples()`, que permite acceder a cada columna con un punto (`row.geometry`, `row.n_provincias`). En cada comunidad:
+
+- `representative_point()` obtiene un punto situado siempre dentro del polígono. A diferencia del centroide, que puede quedar fuera en polígonos de forma irregular o formados por varias partes, como las Islas Baleares.
+- `ax.annotate()` escribe en ese punto el número de provincias. Como `n_provincias` es un número, se convierte primero a texto con `str()`.
+
+Por último, se añade un título (`set_title()`), se ocultan los ejes con las coordenadas (`set_axis_off()`), se guarda el mapa como `ccaa_area.png` dentro de `OUT_DIR` (`savefig()`) y se muestra en pantalla (`plt.show()`).
+
+### Exportar a GeoPackage
+
+Una vez cerrada la ventana del mapa, el programa guarda las dos capas en un mismo archivo GeoPackage:
+
+```python
+out_fp = OUT_DIR / "spain_gis.gpkg"
+esp.to_file(out_fp, layer="provincias")
+ccaa.to_file(out_fp, layer="ccaa")
+```
+
+El método `to_file()` ya se utilizó en el @sec-vectors. Como en el ejemplo con GeoJSON, no se indica el formato, ya que GeoPandas lo deduce a partir de la extensión del archivo (`.gpkg`). El parámetro `layer` permite guardar varias capas dentro del mismo archivo. Si el programa se ejecuta de nuevo, las capas se sobrescriben.
+
+El archivo `spain_gis.gpkg` puede abrirse en QGIS para comprobar que contiene las capas `provincias` y `ccaa`, ambas en `EPSG:25830`. Para eliminar alguna de ellas, puede utilizarse la función `remove()` vista en la @sec-remove-layer.
+
+
+
