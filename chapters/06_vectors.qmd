@@ -10,7 +10,7 @@ No se verá el módulo de Pandas, pero todas las funciones utilizadas para traba
 
 Durante esta primera sección se va a trabajar con la base de datos `gdb` utilizada en la asignatura de SIG: [`ParqueAgua.gdb`](https://cloud.unizar.es/index.php/s/5jpPw9E4AGHY5FP).
 
-Antes de comenzar, se crea un nuevo archivo dentro de la carpeta `./python/examples` con el nombre `geopandas_intro.py`. En él se pegarán los trozos de código que se irán explicando en esta sección.
+Antes de comenzar, se crea un nuevo archivo dentro de la carpeta `./python` con el nombre `geopandas_intro.py`. En él se pegarán los trozos de código que se irán explicando en esta sección.
 
 ## Leer datos
 
@@ -450,6 +450,49 @@ exit()
 ```
 
 Se utiliza la información de `iterrows()` para mostrar la clase de uso cuya área se está mostrando dentro del mensaje.
+
+## Unión de tablas
+
+En una base de datos es habitual encontrar relaciones entre tablas, que permiten consultar información compartida a partir de un identificador común. Por ejemplo, la capa `Ornamental` contiene la ubicación de los elementos ornamentales del parque, mientras que la tabla `InfoOrnamental` guarda información adicional sobre ellos, como el autor o el material.
+
+GeoPandas no lee las relaciones guardadas en la base de datos, solo abre las tablas por separado. Para volver a unirlas se utiliza el método [`merge()`](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html). Pertenece a los objetos `DataFrame` de Pandas, pero también puede utilizarse con un `GeoDataFrame`, ya que este extiende las funcionalidades de `DataFrame`. Equivale a la herramienta *Unión* (*Join*) por atributos de un SIG de escritorio.
+
+Se crea un nuevo archivo llamado `geopandas_merge.py` dentro de la carpeta `python` y se pega en él el siguiente código:
+
+
+```python
+from pathlib import Path
+
+import geopandas as gpd
+
+parque_agua_fp = Path.cwd() / "data" / "parque_agua_v2.gdb"
+if not parque_agua_fp.exists():
+    print(f"Path {parque_agua_fp} do not exist.")
+
+parque_layers = gpd.list_layers(parque_agua_fp)
+
+ornamental = gpd.read_file(parque_agua_fp, layer="Ornamental")
+info_ornamental = gpd.read_file(parque_agua_fp, layer="InfoOrnamental")
+
+print(f"\nType, column dtypes and names of table 'Ornamental':")
+print(ornamental.info())
+
+print(f"\nType, column dtypes and names of table 'InfoOrnamental':")
+print(info_ornamental.info())
+
+ornamental = ornamental.merge(
+    info_ornamental,
+    left_on="id_OR",
+    right_on="ID_OR"
+)
+```
+
+Modificar el código para incluir las siguientes salidas:
+
+1. Capas disponibles en la base de datos
+2. Tipo de objeto, tipo de dato y nombre de las columnas de las dos tablas. ¿Son las dos del mismo tipo?
+3. Nombre de las columnas en la nueva tabla `ornamental`
+4. Mensaje "Ornamento NOMBRE (MATERIAL), autor AUTOR" por cada registro.
 
 ## Ejercicios
 
