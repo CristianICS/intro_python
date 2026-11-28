@@ -6,8 +6,8 @@ __pycache__/
 /images/presentation
 /notebooks/solved_exercises
 /notebooks/*.py
-/notebooks/*.html
 /notebooks/*.pdf
+/notebooks/*.html
 /presentation
 output/
 /.quarto/
@@ -16,6 +16,6 @@ output/
 *.gdb
 AGENTS.md
 TASKS.md
-/python/geopandas_merge.py
-/python/performance.py
-/python/geopandas_spatial_relationships.py
+python/performance.py
+python/geopandas_spatial_relationships.py
+python/geopandas_merge.py
