@@ -16,3 +16,6 @@ output/
 *.gdb
 AGENTS.md
 TASKS.md
+python/performance.py
+python/geopandas_spatial_relationships.py
+python/geopandas_merge.py
