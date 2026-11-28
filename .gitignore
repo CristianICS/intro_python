@@ -6,6 +6,8 @@ __pycache__/
 /images/presentation
 /notebooks/solved_exercises
 /notebooks/*.py
+/notebooks/*.pdf
+/notebooks/*.html
 /presentation
 output/
 /.quarto/
